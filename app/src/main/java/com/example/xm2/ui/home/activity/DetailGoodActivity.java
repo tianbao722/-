@@ -1,8 +1,6 @@
 package com.example.xm2.ui.home.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,11 +11,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.HomeBean;
@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> implements IHome.RecommendView {
     @BindView(R.id.layout_back)
@@ -67,6 +68,10 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     RelativeLayout layoutCart;
     @BindView(R.id.txt_buy)
     TextView txtBuy;
+    @BindView(R.id.sv)
+    ScrollView sv;
+    @BindView(R.id.cl)
+    ConstraintLayout cl;
 
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
@@ -99,7 +104,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
 
     @Override
     protected void initView() {
-
+        cl.getBackground().setAlpha(100);
     }
 
     @Override
@@ -108,6 +113,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
         mPresenter.getGoodDetail(id);
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void initListener() {
         layoutBack.setOnClickListener(new View.OnClickListener() {
@@ -201,5 +207,12 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     public void showLoading(int visble) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
