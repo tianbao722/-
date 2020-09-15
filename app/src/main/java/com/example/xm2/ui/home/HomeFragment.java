@@ -54,7 +54,7 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int i) {
                 int itemType = list.get(i).getItemType();
-                switch (itemType){
+                switch (itemType) {
                     case HomeBean.ITEM_TYPE_BANNER:
                     case HomeBean.ITEM_TYPE_TITLE:
                     case HomeBean.ITEM_TYPE_TITLETOP:

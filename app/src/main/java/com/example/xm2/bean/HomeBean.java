@@ -1,7 +1,6 @@
 package com.example.xm2.bean;
 
 
-
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
@@ -12,7 +11,6 @@ public class HomeBean {
     public static final int ITEM_TYPE_TAB = 2; //TAB
     public static final int ITEM_TYPE_TITLE = 3; //标题
     public static final int ITEM_TYPE_BRAND = 4; //品牌
-
     public static final int ITEM_TYPE_NEW = 5; //新品
     public static final int ITEM_TYPE_HOT = 6; //人气
     public static final int ITEM_TYPE_TOPIC = 7; //专题

@@ -1,7 +1,9 @@
 package com.example.xm2.ui.home.adapter;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.database.sqlite.SQLiteReadOnlyDatabaseException;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -95,6 +98,25 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
                 updateTopic(helper, (List<HomeBean.DataBean.TopicListBean>) item.data);
                 break;
         }
+    }
+
+    /**
+     * 刷新导航
+     *
+     * @param helper
+     * @param data
+     */
+    private void updateDaoHang(BaseViewHolder helper, String data) {
+        TextView canchu = helper.getView(R.id.tv_canchu);
+        TextView fuzhuang = helper.getView(R.id.tv_fuzhuang);
+        TextView jujia = helper.getView(R.id.tv_jujia);
+        TextView peijian = helper.getView(R.id.tv_peijian);
+        TextView zhiqu = helper.getView(R.id.tv_zhiqu);
+        canchu.setText("餐厨");
+        fuzhuang.setText("服装");
+        jujia.setText("居家");
+        peijian.setText("配件");
+        zhiqu.setText("志趣");
     }
 
     /**
@@ -190,7 +212,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         TextView price = viewHolder.getView(R.id.txt_newgood_price);
         Glide.with(context).load(newGoods.getList_pic_url()).into(img);
         name.setText(newGoods.getName());
-        price.setText("¥"+newGoods.getRetail_price()+"");
+        price.setText("¥" + newGoods.getRetail_price() + "");
     }
 
     /**
@@ -203,7 +225,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         TextView title = viewHolder.getView(R.id.txt_hot_title);
         Glide.with(context).load(hotGoods.getList_pic_url()).into(img);
         name.setText(hotGoods.getName());
-        price.setText("¥"+hotGoods.getRetail_price());
+        price.setText("¥" + hotGoods.getRetail_price());
         title.setText(hotGoods.getGoods_brief());
     }
 
@@ -214,13 +236,15 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
      * @param topicGoods
      */
     private void updateTopic(BaseViewHolder viewHolder, List<HomeBean.DataBean.TopicListBean> topicGoods) {
-        RecyclerView recyclerView = viewHolder.getView(R.id.recyclerviewTopic);
+        RecyclerView rlv = viewHolder.getView(R.id.recyclerviewTopic);
         if (topicAdapter == null) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             topicAdapter = new TopicAdapter(context, topicGoods);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(topicAdapter);
-        } else if (recyclerView.getAdapter() == null) {
-            recyclerView.setAdapter(topicAdapter);
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            rlv.setLayoutManager(linearLayoutManager);
+            rlv.setAdapter(topicAdapter);
+        } else if (rlv.getAdapter() == null) {
+            rlv.setAdapter(topicAdapter);
         }
     }
 }
