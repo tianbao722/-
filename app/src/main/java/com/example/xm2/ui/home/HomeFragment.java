@@ -27,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+
 //首页
 public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> implements IHome.RecommendView {
 
