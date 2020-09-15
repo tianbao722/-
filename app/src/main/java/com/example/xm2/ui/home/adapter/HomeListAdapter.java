@@ -34,6 +34,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.http.Header;
+
 public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeListBean, BaseViewHolder> {
 
     private Context context;
@@ -61,6 +63,8 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         addItemType(HomeBean.ITEM_TYPE_HOT, R.layout.layout_home_hot);
         addItemType(HomeBean.ITEM_TYPE_TITLETOP, R.layout.layout_title_top);
         addItemType(HomeBean.ITEM_TYPE_TOPIC, R.layout.layout_home_topiclist);
+        addItemType(HomeBean.ITEM_TYPE_TITLETOP, R.layout.layout_title_top);
+        addItemType(HomeBean.ITEM_TYPE_CATEGORY, R.layout.layout_home_newgood);
     }
 
     /**
@@ -97,27 +101,12 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
             case HomeBean.ITEM_TYPE_TOPIC:
                 updateTopic(helper, (List<HomeBean.DataBean.TopicListBean>) item.data);
                 break;
+            case HomeBean.ITEM_TYPE_CATEGORY:
+                updateJuJia(helper, (HomeBean.DataBean.CategoryListBean.GoodsListBean) item.data);
+                break;
         }
     }
 
-    /**
-     * 刷新导航
-     *
-     * @param helper
-     * @param data
-     */
-    private void updateDaoHang(BaseViewHolder helper, String data) {
-        TextView canchu = helper.getView(R.id.tv_canchu);
-        TextView fuzhuang = helper.getView(R.id.tv_fuzhuang);
-        TextView jujia = helper.getView(R.id.tv_jujia);
-        TextView peijian = helper.getView(R.id.tv_peijian);
-        TextView zhiqu = helper.getView(R.id.tv_zhiqu);
-        canchu.setText("餐厨");
-        fuzhuang.setText("服装");
-        jujia.setText("居家");
-        peijian.setText("配件");
-        zhiqu.setText("志趣");
-    }
 
     /**
      * 刷新title
@@ -169,19 +158,29 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void updateTab(BaseViewHolder viewHolder, List<HomeBean.DataBean.ChannelBean> channels) {
         LinearLayout layoutChannels = viewHolder.getView(R.id.layout_tab);
+        TextView zhiqu = viewHolder.getView(R.id.tv_zhiqu);
+        TextView peijian = viewHolder.getView(R.id.tv_peijian);
+        TextView jujia = viewHolder.getView(R.id.tv_jujia);
+        TextView fuzhuang = viewHolder.getView(R.id.tv_fuzhuang);
+        TextView canchu = viewHolder.getView(R.id.tv_canchu);
         //只让当前的布局内容添加一次 only one
         if (layoutChannels.getChildCount() == 0) {
-            for (HomeBean.DataBean.ChannelBean item : channels) {
-                TextView tab = new TextView(context);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-                int size = SystemUtils.dp2px(context, 14);
-                tab.setTextSize(size);
-                tab.setGravity(Gravity.CENTER);
-                @SuppressLint("UseCompatLoadingForDrawables")
-                Drawable icon = context.getDrawable(R.mipmap.ic_channel1);
-                tab.setCompoundDrawables(null, icon, null, null);
-                layoutChannels.addView(tab);
-            }
+//            for (HomeBean.DataBean.ChannelBean item : channels) {
+//                TextView tab = new TextView(context);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+//                int size = SystemUtils.dp2px(context, 14);
+//                tab.setTextSize(size);
+//                tab.setGravity(Gravity.CENTER);
+//                @SuppressLint("UseCompatLoadingForDrawables")
+//                Drawable icon = context.getDrawable(R.mipmap.ic_channel1);
+//                tab.setCompoundDrawables(null, icon, null, null);
+//                layoutChannels.addView(tab);
+//            }
+            jujia.setText(channels.get(0).getName());
+            canchu.setText(channels.get(1).getName());
+            peijian.setText(channels.get(2).getName());
+            fuzhuang.setText(channels.get(3).getName());
+            zhiqu.setText(channels.get(4).getName());
         }
     }
 
@@ -246,5 +245,15 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         } else if (rlv.getAdapter() == null) {
             rlv.setAdapter(topicAdapter);
         }
+    }
+
+    //刷新居家数据
+    private void updateJuJia(BaseViewHolder helper, HomeBean.DataBean.CategoryListBean.GoodsListBean data) {
+        ImageView img = helper.getView(R.id.img_newgood);
+        TextView name = helper.getView(R.id.txt_newgood_name);
+        TextView price = helper.getView(R.id.txt_newgood_price);
+        Glide.with(context).load(data.getList_pic_url()).into(img);
+        name.setText(data.getName());
+        price.setText("¥" + data.getRetail_price() + "");
     }
 }

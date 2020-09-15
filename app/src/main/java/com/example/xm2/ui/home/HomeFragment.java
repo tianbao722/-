@@ -56,6 +56,7 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
                 int itemType = list.get(i).getItemType();
                 switch (itemType) {
                     case HomeBean.ITEM_TYPE_BANNER:
+                    case HomeBean.ITEM_TYPE_TAB:
                     case HomeBean.ITEM_TYPE_TITLE:
                     case HomeBean.ITEM_TYPE_TITLETOP:
                     case HomeBean.ITEM_TYPE_TOPIC:

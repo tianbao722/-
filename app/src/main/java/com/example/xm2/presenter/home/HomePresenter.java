@@ -90,6 +90,19 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                             brand.data = homeBean.getData().getTopicList().get(i);
                             list.add(brand);
                         }*/
+                        //列表
+                        for (HomeBean.DataBean.CategoryListBean item : homeBean.getData().getCategoryList()) {
+                            HomeBean.HomeListBean title = new HomeBean.HomeListBean();
+                            title.currentType = HomeBean.ITEM_TYPE_TITLETOP;
+                            title.data = item.getName();
+                            list.add(title);
+                            for (HomeBean.DataBean.CategoryListBean.GoodsListBean good : item.getGoodsList()) {
+                                HomeBean.HomeListBean listBean = new HomeBean.HomeListBean();
+                                listBean.currentType = HomeBean.ITEM_TYPE_CATEGORY;
+                                listBean.data = good;
+                                list.add(listBean);
+                            }
+                        }
                         return list;
                     }
                 })
