@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">XM2</string>
+    <string name="word_price_brand">$元起</string>
 </resources>

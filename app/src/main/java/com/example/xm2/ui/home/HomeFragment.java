@@ -4,16 +4,26 @@ package com.example.xm2.ui.home;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
+import com.example.xm2.bean.HomeBean;
 import com.example.xm2.interfaces.IBasePresenter;
+import com.example.xm2.interfaces.home.IHome;
+import com.example.xm2.presenter.home.HomePresenter;
+import com.example.xm2.ui.home.adapter.HomeListAdapter;
+
+import java.net.ContentHandler;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 //首页
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> implements IHome.RecommendView {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -21,10 +31,13 @@ public class HomeFragment extends BaseFragment {
     EditText etSousuo;
     @BindView(R.id.rlv_home)
     RecyclerView rlvHome;
+    private ArrayList<HomeBean.HomeListBean> list;
+    private HomeListAdapter homeListAdapter;
+
 
     @Override
-    protected IBasePresenter initPresenter() {
-        return null;
+    protected IHome.RecommendPersenter initPresenter() {
+        return new HomePresenter();
     }
 
     @Override
@@ -34,12 +47,35 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        list = new ArrayList<>();
+        homeListAdapter = new HomeListAdapter(list, getActivity());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        homeListAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(GridLayoutManager gridLayoutManager, int i) {
+                int itemType = list.get(i).getItemType();
+                switch (itemType){
+                    case HomeBean.ITEM_TYPE_BANNER:
+                    case HomeBean.ITEM_TYPE_TITLE:
+                    case HomeBean.ITEM_TYPE_TITLETOP:
+                    case HomeBean.ITEM_TYPE_TOPIC:
+                    case HomeBean.ITEM_TYPE_HOT:
+                        return 2;
+                    case HomeBean.ITEM_TYPE_BRAND:
+                    case HomeBean.ITEM_TYPE_NEW:
+                    case HomeBean.ITEM_TYPE_CATEGORY:
+                        return 1;
+                }
+                return 0;
+            }
+        });
+        rlvHome.setLayoutManager(gridLayoutManager);
+        homeListAdapter.bindToRecyclerView(rlvHome);
     }
 
     @Override
     protected void initData() {
-
+        mPresenter.getHome();
     }
 
     @Override
@@ -55,5 +91,11 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void showLoading(int visble) {
 
+    }
+
+    @Override
+    public void getHomeResult(List<HomeBean.HomeListBean> result) {
+        list.addAll(result);
+        homeListAdapter.notifyDataSetChanged();
     }
 }
