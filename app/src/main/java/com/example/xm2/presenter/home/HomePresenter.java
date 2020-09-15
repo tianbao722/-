@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
+import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.common.CommonSubScriBer;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.model.HttpManager;
@@ -112,5 +113,21 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                         mView.getHomeResult(list);
                     }
                 }));
+    }
+
+    @Override
+    public void getGoodDetail(int id) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getGoodDetail(id)
+                        .compose(RxUtils.<HomeGoodDetailBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<HomeGoodDetailBean>(mView) {
+                            @Override
+                            public void onNext(HomeGoodDetailBean homeGoodDetailBean) {
+                                mView.getGoodDetailResult(homeGoodDetailBean);
+                            }
+                        }));
     }
 }

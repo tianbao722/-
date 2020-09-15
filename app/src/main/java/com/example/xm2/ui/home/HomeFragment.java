@@ -1,6 +1,9 @@
 package com.example.xm2.ui.home;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,9 +14,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.HomeBean;
+import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.interfaces.IBasePresenter;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
+import com.example.xm2.ui.home.activity.DetailGoodActivity;
 import com.example.xm2.ui.home.adapter.HomeListAdapter;
 
 import java.net.ContentHandler;
@@ -33,7 +38,6 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
     RecyclerView rlvHome;
     private ArrayList<HomeBean.HomeListBean> list;
     private HomeListAdapter homeListAdapter;
-
 
     @Override
     protected IHome.RecommendPersenter initPresenter() {
@@ -81,7 +85,33 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     protected void initListener() {
-
+        homeListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                int type = list.get(position).currentType;
+                Intent intent = new Intent();
+                switch (type){
+                    case HomeBean.ITEM_TYPE_BANNER:
+                        break;
+                    case HomeBean.ITEM_TYPE_BRAND:
+                        break;
+                    case HomeBean.ITEM_TYPE_HOT:
+                        HomeBean.DataBean.HotGoodsListBean bean = (HomeBean.DataBean.HotGoodsListBean) list.get(position).data;
+                        intent.putExtra("id",bean.getId());
+                        intent.setClass(getActivity(), DetailGoodActivity.class);
+                        startActivity(intent);
+                        break;
+                    case HomeBean.ITEM_TYPE_TITLE:
+                        break;
+                    case HomeBean.ITEM_TYPE_TITLETOP:
+                        break;
+                    case HomeBean.ITEM_TYPE_TOPIC:
+                        break;
+                    case HomeBean.ITEM_TYPE_CATEGORY:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -98,5 +128,10 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
     public void getHomeResult(List<HomeBean.HomeListBean> result) {
         list.addAll(result);
         homeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getGoodDetailResult(HomeGoodDetailBean result) {
+
     }
 }
