@@ -2,28 +2,31 @@ package com.example.xm2.ui.home.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
+import com.example.xm2.base.BaseAdapter;
+import com.example.xm2.base.ImageActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
+import com.example.xm2.ui.home.activity.adapter.ImageAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -52,10 +55,6 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     FrameLayout layoutNorms;
     @BindView(R.id.layout_comment)
     FrameLayout layoutComment;
-    @BindView(R.id.layout_imgs)
-    LinearLayout layoutImgs;
-    @BindView(R.id.layout_parameter)
-    LinearLayout layoutParameter;
     @BindView(R.id.webView)
     WebView webView;
     @BindView(R.id.recyclerview)
@@ -72,6 +71,32 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     ScrollView sv;
     @BindView(R.id.cl)
     ConstraintLayout cl;
+    @BindView(R.id.tv_pinglun)
+    TextView tvPinglun;
+    @BindView(R.id.rlv_pinglun)
+    RecyclerView rlvPinglun;
+    @BindView(R.id.tv_time_pingjia)
+    TextView tvTimePingjia;
+    @BindView(R.id.tv_chichun)
+    TextView tvChichun;
+    @BindView(R.id.tv_chichun_num)
+    TextView tvChichunNum;
+    @BindView(R.id.tv_mianliao)
+    TextView tvMianliao;
+    @BindView(R.id.tv_mianliao_num)
+    TextView tvMianliaoNum;
+    @BindView(R.id.tv_tianchongwu)
+    TextView tvTianchongwu;
+    @BindView(R.id.tv_tianchongwu_num)
+    TextView tvTianchongwuNum;
+    @BindView(R.id.tv_zhongliang)
+    TextView tvZhongliang;
+    @BindView(R.id.tv_zhongliang_num)
+    TextView tvZhongliangNum;
+    @BindView(R.id.tv_tishi)
+    TextView tvTishi;
+    @BindView(R.id.tv_tishi_num)
+    TextView tvTishiNum;
 
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
@@ -91,7 +116,6 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             "            </body>\n" +
             "        </html>";
 
-
     @Override
     protected IHome.RecommendPersenter initPresenter() {
         return new HomePresenter();
@@ -105,6 +129,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     protected void initView() {
         cl.getBackground().setAlpha(100);
+
     }
 
     @Override
@@ -151,7 +176,29 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
      * @param commentBean
      */
     private void updateComment(HomeGoodDetailBean.DataBeanX.CommentBean commentBean) {
-
+        if (commentBean != null) {
+            List<HomeGoodDetailBean.DataBeanX.CommentBean.DataBean.PicListBean> pic_list = commentBean.getData().getPic_list();
+            ArrayList<String> images = new ArrayList<>();
+            for (int i = 0; i < pic_list.size(); i++) {
+                String pic_url = pic_list.get(i).getPic_url();
+                images.add(pic_url);
+            }
+            tvTimePingjia.setText(commentBean.getData().getAdd_time());
+            tvPinglun.setText(commentBean.getData().getContent());
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(DetailGoodActivity.this, 4);
+            rlvPinglun.setLayoutManager(gridLayoutManager);
+            ImageAdapter imageAdapter = new ImageAdapter(DetailGoodActivity.this, commentBean.getData().getPic_list());
+            rlvPinglun.setAdapter(imageAdapter);
+            imageAdapter.setOnClick(new BaseAdapter.onClick() {
+                @Override
+                public void click(int pos) {
+                    Intent intent = new Intent(DetailGoodActivity.this, ImageActivity.class);
+                    intent.putExtra("postion", pos);
+                    intent.putExtra("list", images);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     /**
@@ -160,10 +207,27 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
      * @param attributeBean
      */
     private void updateParameter(List<HomeGoodDetailBean.DataBeanX.AttributeBean> attributeBean) {
-        layoutParameter.removeAllViews(); //清空
-        for (HomeGoodDetailBean.DataBeanX.AttributeBean item : attributeBean) {
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_parameter, null);
-            layoutParameter.addView(view);
+        if (attributeBean != null) {
+            String name = attributeBean.get(0).getName();
+            String value = attributeBean.get(0).getValue();
+            String name1 = attributeBean.get(1).getName();
+            String value1 = attributeBean.get(1).getValue();
+            String name2 = attributeBean.get(2).getName();
+            String value2 = attributeBean.get(2).getValue();
+            String name3 = attributeBean.get(3).getName();
+            String value3 = attributeBean.get(3).getValue();
+            String name4 = attributeBean.get(4).getName();
+            String value4 = attributeBean.get(4).getValue();
+            tvChichun.setText(name);
+            tvChichunNum.setText(value);
+            tvMianliao.setText(name1);
+            tvMianliaoNum.setText(value1);
+            tvTianchongwu.setText(name2);
+            tvTianchongwuNum.setText(value2);
+            tvZhongliang.setText(name3);
+            tvZhongliangNum.setText(value3);
+            tvTishi.setText(name4);
+            tvTishiNum.setText(value4);
         }
     }
 
@@ -171,7 +235,6 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
         if (!TextUtils.isEmpty(infoBean.getGoods_desc())) {
             String h5 = infoBean.getGoods_desc();
             html = html.replace("$", h5);
-
             webView.loadDataWithBaseURL("about:blank", html, "text/html", "utf-8", null);
             //webView.loadData(html,"text/html","utf-8");
         }
