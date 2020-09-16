@@ -8,12 +8,14 @@ import androidx.annotation.RequiresApi;
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.UserBean;
 import com.example.xm2.common.CommonSubScriBer;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.model.HttpManager;
 import com.example.xm2.utiles.RxUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.functions.Function;
@@ -129,5 +131,22 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                                 mView.getGoodDetailResult(homeGoodDetailBean);
                             }
                         }));
+    }
+
+    @Override
+    public void getLogin(HashMap<String, String> map) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getLogin(map)
+                        .compose(RxUtils.<UserBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<UserBean>(mView) {
+                            @Override
+                            public void onNext(UserBean userBean) {
+                                mView.getLoginResult(userBean);
+                            }
+                        })
+        );
     }
 }

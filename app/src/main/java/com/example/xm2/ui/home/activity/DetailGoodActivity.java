@@ -24,6 +24,7 @@ import com.example.xm2.base.BaseAdapter;
 import com.example.xm2.base.ImageActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.adapter.ImageAdapter;
@@ -260,6 +261,11 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
         updateParameter(result.getData().getAttribute());
         //详情信息的展示
         updateDetailInfo(result.getData().getInfo());
+    }
+
+    @Override
+    public void getLoginResult(UserBean result) {
+
     }
 
     @Override

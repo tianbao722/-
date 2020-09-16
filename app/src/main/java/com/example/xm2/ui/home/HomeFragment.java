@@ -1,10 +1,10 @@
 package com.example.xm2.ui.home;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,13 +15,12 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
-import com.example.xm2.interfaces.IBasePresenter;
+import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.DetailGoodActivity;
 import com.example.xm2.ui.home.adapter.HomeListAdapter;
 
-import java.net.ContentHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +36,8 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
     EditText etSousuo;
     @BindView(R.id.rlv_home)
     RecyclerView rlvHome;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     private ArrayList<HomeBean.HomeListBean> list;
     private HomeListAdapter homeListAdapter;
 
@@ -52,6 +53,7 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     protected void initView() {
+        ivBack.setVisibility(View.GONE);
         list = new ArrayList<>();
         homeListAdapter = new HomeListAdapter(list, getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -91,20 +93,21 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 int type = list.get(position).currentType;
                 Intent intent = new Intent();
-                switch (type){
+                switch (type) {
                     case HomeBean.ITEM_TYPE_BANNER:
                         break;
                     case HomeBean.ITEM_TYPE_BRAND:
                         break;
                     case HomeBean.ITEM_TYPE_HOT:
                         HomeBean.DataBean.HotGoodsListBean bean = (HomeBean.DataBean.HotGoodsListBean) list.get(position).data;
-                        intent.putExtra("id",bean.getId());
+                        intent.putExtra("id", bean.getId());
                         intent.setClass(getActivity(), DetailGoodActivity.class);
                         startActivity(intent);
                         break;
                     case HomeBean.ITEM_TYPE_TITLE:
                         break;
                     case HomeBean.ITEM_TYPE_TITLETOP:
+
                         break;
                     case HomeBean.ITEM_TYPE_TOPIC:
                         break;
@@ -133,6 +136,11 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     public void getGoodDetailResult(HomeGoodDetailBean result) {
+
+    }
+
+    @Override
+    public void getLoginResult(UserBean result) {
 
     }
 }

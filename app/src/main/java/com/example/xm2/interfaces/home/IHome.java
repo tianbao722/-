@@ -3,9 +3,11 @@ package com.example.xm2.interfaces.home;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.IBasePresenter;
 import com.example.xm2.interfaces.IBaseView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IHome {
@@ -15,6 +17,9 @@ public interface IHome {
 
         //商品购买详情
         void getGoodDetailResult(HomeGoodDetailBean result);
+
+        //登录
+        void getLoginResult(UserBean result);
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -23,6 +28,9 @@ public interface IHome {
 
         //请求商品购买详情数据
         void getGoodDetail(int id);
+
+        //请求登录
+        void getLogin(HashMap<String,String> map);
     }
 
 }
