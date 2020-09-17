@@ -1,5 +1,6 @@
 package com.example.xm2.ui.my.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -43,6 +44,7 @@ public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implem
     Button btnZhuce;
     @BindView(R.id.ll_login)
     LinearLayout llLogin;
+    private String pwd;
 
     @Override
     protected IHome.RecommendPersenter initPresenter() {
@@ -79,7 +81,7 @@ public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implem
             @Override
             public void onClick(View view) {
                 String name = etName.getText().toString();
-                String pwd = etPwd.getText().toString();
+                pwd = etPwd.getText().toString();
                 String pwd1 = etPwd1.getText().toString();
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd1)) {
                     if (pwd.equals(pwd1)) {
@@ -137,6 +139,10 @@ public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implem
     @Override
     public void getZhuCeResult(UserBean result) {
         if (result.getData() != null) {
+            Intent intent = getIntent();
+            intent.putExtra("name",result.getData().getUserInfo().getUsername());
+            intent.putExtra("pwd",pwd);
+            setResult(2,intent);
             finish();
             Toast.makeText(this, "注册成功,前往登录界面", Toast.LENGTH_SHORT).show();
         } else {

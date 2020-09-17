@@ -83,12 +83,12 @@ public class LoginActivity extends BaseActivity<IHome.RecommendPersenter> implem
                 String name = etName.getText().toString();
                 String pwd = etPwd.getText().toString();
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pwd)) {
-                    if (pwd.length() >= 6){
+                    if (pwd.length() >= 6) {
                         HashMap<String, String> login = new HashMap<>();
                         login.put("username", name);
                         login.put("password", pwd);
                         mPresenter.getLogin(login);
-                    }else {
+                    } else {
                         Toast.makeText(LoginActivity.this, "密码小于六位", Toast.LENGTH_SHORT).show();
                     }
                 } else {

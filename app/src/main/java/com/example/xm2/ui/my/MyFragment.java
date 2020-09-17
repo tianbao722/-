@@ -7,12 +7,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.interfaces.IBasePresenter;
 import com.example.xm2.ui.my.activity.LoginActivity;
+import com.example.xm2.utiles.SpUtils;
 
 import butterknife.BindView;
 
@@ -75,7 +77,7 @@ public class MyFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
     }
@@ -88,5 +90,14 @@ public class MyFragment extends BaseFragment {
     @Override
     public void showLoading(int visble) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            String username = SpUtils.getInstance().getString("username");
+            tvDenglu.setText(username);
+        }
     }
 }
