@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.common.CommonSubScriBer;
 import com.example.xm2.interfaces.home.IHome;
@@ -162,6 +163,23 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                     @Override
                     public void onNext(UserBean userBean) {
                         mView.getZhuCeResult(userBean);
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void getSpecial(int page, int size) {
+        addSubscribe(
+                HttpManager
+                .getInstance()
+                .getHomeApi()
+                .getSpecial(page,size)
+                .compose(RxUtils.<SpecialBean>rxScheduler())
+                .subscribeWith(new CommonSubScriBer<SpecialBean>(mView) {
+                    @Override
+                    public void onNext(SpecialBean specialBean) {
+                        mView.getSpecialResult(specialBean);
                     }
                 })
         );

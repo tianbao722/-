@@ -32,6 +32,7 @@ import com.example.xm2.base.BaseAdapter;
 import com.example.xm2.base.ImageActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
@@ -290,6 +291,11 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
 
     @Override
     public void getZhuCeResult(UserBean result) {
+
+    }
+
+    @Override
+    public void getSpecialResult(SpecialBean result) {
 
     }
 

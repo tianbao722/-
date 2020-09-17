@@ -5,6 +5,7 @@ import androidx.constraintlayout.helper.widget.Flow;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 
 import java.util.HashMap;
@@ -33,4 +34,8 @@ public interface HomeApi {
     @POST("auth/register")
     @FormUrlEncoded
     Flowable<UserBean> getZhuCe(@FieldMap HashMap<String,String> map);
+
+    //专题
+    @GET("topic/list")
+    Flowable<SpecialBean> getSpecial(@Query("page") int page,@Query("size") int size);
 }

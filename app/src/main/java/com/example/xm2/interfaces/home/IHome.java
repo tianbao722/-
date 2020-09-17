@@ -3,6 +3,7 @@ package com.example.xm2.interfaces.home;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.IBasePresenter;
 import com.example.xm2.interfaces.IBaseView;
@@ -23,6 +24,9 @@ public interface IHome {
 
         //注册
         void getZhuCeResult(UserBean result);
+
+        //专题
+        void getSpecialResult(SpecialBean result);
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -37,6 +41,8 @@ public interface IHome {
 
         //请求注册
         void getZhuce(HashMap<String,String> map);
+
+        void getSpecial(int page,int size);
     }
 
 }

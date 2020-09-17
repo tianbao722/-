@@ -15,6 +15,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
@@ -146,6 +147,11 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     public void getZhuCeResult(UserBean result) {
+
+    }
+
+    @Override
+    public void getSpecialResult(SpecialBean result) {
 
     }
 }

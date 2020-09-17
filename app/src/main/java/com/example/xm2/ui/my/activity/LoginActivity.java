@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
@@ -110,8 +112,10 @@ public class LoginActivity extends BaseActivity<IHome.RecommendPersenter> implem
             public void onClick(View v) {
                 if (etPwd.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {//不可见
                     imvPwd.setImageResource(R.mipmap.yanjingbi);
+                    etPwd.setKeyListener(DigitsKeyListener.getInstance("1234567890"));
                     etPwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
                 } else {
+                    etPwd.setKeyListener(DigitsKeyListener.getInstance("1234567890"));
                     imvPwd.setImageResource(R.mipmap.yanjingkai);
                     etPwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 }
@@ -178,6 +182,11 @@ public class LoginActivity extends BaseActivity<IHome.RecommendPersenter> implem
 
     @Override
     public void getZhuCeResult(UserBean result) {
+
+    }
+
+    @Override
+    public void getSpecialResult(SpecialBean result) {
 
     }
 }
