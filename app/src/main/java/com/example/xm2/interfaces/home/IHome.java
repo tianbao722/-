@@ -20,6 +20,9 @@ public interface IHome {
 
         //登录
         void getLoginResult(UserBean result);
+
+        //注册
+        void getZhuCeResult(UserBean result);
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -31,6 +34,9 @@ public interface IHome {
 
         //请求登录
         void getLogin(HashMap<String,String> map);
+
+        //请求注册
+        void getZhuce(HashMap<String,String> map);
     }
 
 }

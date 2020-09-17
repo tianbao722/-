@@ -144,7 +144,6 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     protected void initView() {
         cl.getBackground().setAlpha(100);
-
     }
 
     @Override
@@ -289,6 +288,11 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     }
 
     @Override
+    public void getZhuCeResult(UserBean result) {
+
+    }
+
+    @Override
     public void showTips(String tips) {
 
     }
@@ -343,7 +347,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             cartCustomView.setiClick(new CartCustomView.IClick() {
                 @Override
                 public void iClickNum(int num) {
-//                    Toast.makeText(DetailGoodActivity.this, num, Toast.LENGTH_SHORT).show();
+
                 }
             });
         }

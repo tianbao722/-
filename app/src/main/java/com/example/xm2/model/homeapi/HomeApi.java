@@ -1,6 +1,8 @@
 package com.example.xm2.model.homeapi;
 
 
+import androidx.constraintlayout.helper.widget.Flow;
+
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.UserBean;
@@ -26,4 +28,9 @@ public interface HomeApi {
     @POST("auth/login")
     @FormUrlEncoded
     Flowable<UserBean> getLogin(@FieldMap HashMap<String, String> map);
+
+    //注册
+    @POST("auth/register")
+    @FormUrlEncoded
+    Flowable<UserBean> getZhuCe(@FieldMap HashMap<String,String> map);
 }

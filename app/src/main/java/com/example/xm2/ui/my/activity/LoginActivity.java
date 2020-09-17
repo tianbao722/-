@@ -175,4 +175,9 @@ public class LoginActivity extends BaseActivity<IHome.RecommendPersenter> implem
             Toast.makeText(this, result.getData().getMsg(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void getZhuCeResult(UserBean result) {
+
+    }
 }

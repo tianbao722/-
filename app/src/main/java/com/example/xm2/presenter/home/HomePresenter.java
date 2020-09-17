@@ -149,4 +149,21 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                         })
         );
     }
+
+    @Override
+    public void getZhuce(HashMap<String, String> map) {
+        addSubscribe(
+                HttpManager
+                .getInstance()
+                .getHomeApi()
+                .getZhuCe(map)
+                .compose(RxUtils.<UserBean>rxScheduler())
+                .subscribeWith(new CommonSubScriBer<UserBean>(mView) {
+                    @Override
+                    public void onNext(UserBean userBean) {
+                        mView.getZhuCeResult(userBean);
+                    }
+                })
+        );
+    }
 }

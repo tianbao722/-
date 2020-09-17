@@ -14,12 +14,20 @@ import android.widget.Toast;
 
 import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
+import com.example.xm2.bean.HomeBean;
+import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.IBasePresenter;
+import com.example.xm2.interfaces.home.IHome;
+import com.example.xm2.presenter.home.HomePresenter;
+
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ZhuCeActivity extends BaseActivity {
+public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implements IHome.RecommendView {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -37,8 +45,8 @@ public class ZhuCeActivity extends BaseActivity {
     LinearLayout llLogin;
 
     @Override
-    protected IBasePresenter initPresenter() {
-        return null;
+    protected IHome.RecommendPersenter initPresenter() {
+        return new HomePresenter();
     }
 
     @Override
@@ -75,8 +83,15 @@ public class ZhuCeActivity extends BaseActivity {
                 String pwd1 = etPwd1.getText().toString();
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd1)) {
                     if (pwd.equals(pwd1)) {
-
-                    }else {
+                        if (pwd.length() >= 6) {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("username", name);
+                            map.put("password", pwd);
+                            mPresenter.getZhuce(map);
+                        } else {
+                            Toast.makeText(ZhuCeActivity.this, "密码长度小于六位", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
                         Toast.makeText(ZhuCeActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -102,5 +117,30 @@ public class ZhuCeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void getHomeResult(List<HomeBean.HomeListBean> result) {
+
+    }
+
+    @Override
+    public void getGoodDetailResult(HomeGoodDetailBean result) {
+
+    }
+
+    @Override
+    public void getLoginResult(UserBean result) {
+
+    }
+
+    @Override
+    public void getZhuCeResult(UserBean result) {
+        if (result.getData() != null) {
+            finish();
+            Toast.makeText(this, "注册成功,前往登录界面", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, result.getErrmsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

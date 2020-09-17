@@ -143,4 +143,9 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
     public void getLoginResult(UserBean result) {
 
     }
+
+    @Override
+    public void getZhuCeResult(UserBean result) {
+
+    }
 }
