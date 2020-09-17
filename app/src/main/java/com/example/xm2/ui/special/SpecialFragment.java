@@ -51,6 +51,7 @@ public class SpecialFragment extends BaseFragment<IHome.RecommendPersenter> impl
         return new HomePresenter();
     }
 
+
     @Override
     protected int getLayout() {
         return R.layout.fragment_special;
