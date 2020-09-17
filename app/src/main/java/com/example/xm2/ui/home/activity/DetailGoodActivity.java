@@ -144,6 +144,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     protected void initView() {
         cl.getBackground().setAlpha(100);
+
     }
 
     @Override
