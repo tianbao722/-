@@ -3,15 +3,23 @@ package com.example.xm2.ui.home.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,9 +36,12 @@ import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.adapter.ImageAdapter;
+import com.example.xm2.utiles.SystemUtils;
+import com.example.xm2.zidingyiView.CartCustomView;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +109,9 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     TextView tvTishi;
     @BindView(R.id.tv_tishi_num)
     TextView tvTishiNum;
+    @BindView(R.id.layout_bottom)
+    LinearLayout layoutBottom;
+    private PopupWindow mPopWindow;
 
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
@@ -146,6 +160,12 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        layoutNorms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initPopupWindow();
             }
         });
     }
@@ -283,5 +303,54 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public void initPopupWindow() {
+        if (mPopWindow != null && mPopWindow.isShowing()) {
+
+        } else {
+            View contentView = LayoutInflater.from(this).inflate(R.layout.layout_popupwind_good, null);
+            int height = SystemUtils.dp2px(this, 200);
+            mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, height);
+//            mPopWindow.setFocusable(true);//点击空地popupwindow消失
+//            mPopWindow.setOutsideTouchable(true);//点击空地popupwindow消失
+            bgAlpha(0.5f);
+//            mPopWindow.setContentView(contentView);
+            mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    bgAlpha(1f);
+                }
+            });
+            contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            CartCustomView cartCustomView = contentView.findViewById(R.id.ccv);
+            ImageView txtClose = contentView.findViewById(R.id.iv_cha);
+            txtClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopWindow.dismiss();
+                    mPopWindow = null;
+                }
+            });
+            int[] pt = new int[2];
+//            获取到的屏幕宽高(除开了当前组件的宽高）
+            layoutBottom.getLocationInWindow(pt);
+            // Display display = getWindowManager().getDefaultDisplay();
+            // int activityheight = display.getHeight();
+            mPopWindow.showAtLocation(layoutBottom, Gravity.NO_GRAVITY, 0, pt[1] - height);
+            cartCustomView.initView();
+            cartCustomView.setiClick(new CartCustomView.IClick() {
+                @Override
+                public void iClickNum(int num) {
+//                    Toast.makeText(DetailGoodActivity.this, num, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public void bgAlpha(float bgalpha){
+        WindowManager.LayoutParams ab = getWindow().getAttributes();
+        ab.alpha = bgalpha;
+        getWindow().setAttributes(ab);
     }
 }
