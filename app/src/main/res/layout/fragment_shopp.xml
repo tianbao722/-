@@ -13,8 +13,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,34 +42,24 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_cb"
+        <CheckBox
+            android:id="@+id/checkbox_select"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@drawable/selector_shopp_cb"
+            android:button="@null" />
+
+        <TextView
+            android:id="@+id/tv_quanxuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkbox_select"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:background="@drawable/selector_shopp_cb"
-                android:button="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_quanxuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="全选(0)"
-                android:textColor="#000000"
-                android:textSize="@dimen/sp_15" />
-        </LinearLayout>
-
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toEndOf="@id/checkbox_select"
+            android:text="全选(0)"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/txt_allPrice"
@@ -76,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_20"
-            android:layout_toEndOf="@id/ll_cb"
+            android:layout_toEndOf="@id/tv_quanxuan"
             android:text="￥100"
             tools:ignore="NotSibling,RtlCompat" />
 

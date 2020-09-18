@@ -398,6 +398,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/tv_num_all"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_alignRight="@id/img_cart"
@@ -425,6 +426,7 @@
             tools:ignore="HardcodedText,ObsoleteLayoutParam,RtlHardcoded" />
 
         <TextView
+            android:id="@+id/tv_add"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignRight="@id/img_cart"

@@ -16,7 +16,7 @@ import com.example.xm2.R;
 public class CartCustomView extends LinearLayout implements View.OnClickListener {
     private Context context;
     private TextView jian;
-    private TextView num;
+    private TextView txtnum;
     private TextView add;
     private IClick iClick;
     private int num1 = 1;
@@ -50,9 +50,9 @@ public class CartCustomView extends LinearLayout implements View.OnClickListener
     //初始化界面有外部控制
     public void initView() {
         jian = findViewById(R.id.tv_subtract);
-        num = findViewById(R.id.tv_num);
+        txtnum = findViewById(R.id.tv_num);
         add = findViewById(R.id.tv_jia);
-        if (jian != null && num != null && add != null) {
+        if (jian != null && txtnum != null && add != null) {
             jian.setOnClickListener(this);
             add.setOnClickListener(this);
         } else {
@@ -66,21 +66,32 @@ public class CartCustomView extends LinearLayout implements View.OnClickListener
         initView();
     }
 
+
+    /**
+     * 设置值
+     *
+     * @param num
+     */
+    public void setValue(int num) {
+        this.num1 = num;
+        txtnum.setText(this.num1+"");
+    }
+
     @Override
     public void onClick(View view) {
-        String string = num.getText().toString();
+        String string = txtnum.getText().toString();
         num1 = Integer.parseInt(string);
         switch (view.getId()) {
             case R.id.tv_jia://加
                 num1++;
-                if (num1 > max){
+                if (num1 > max) {
                     num1 = max;
-                }else {
+                } else {
                     if (iClick != null) {
                         iClick.iClickNum(num1);
                     }
                 }
-                num.setText(String.valueOf(num1));
+                txtnum.setText(String.valueOf(num1));
 
                 break;
             case R.id.tv_subtract://减
@@ -88,7 +99,7 @@ public class CartCustomView extends LinearLayout implements View.OnClickListener
                 if (num1 < 1) {
                     num1 = 1;
                 } else {
-                    num.setText(String.valueOf(num1));
+                    txtnum.setText(String.valueOf(num1));
                     if (iClick != null) {
                         iClick.iClickNum(num1);
                     }

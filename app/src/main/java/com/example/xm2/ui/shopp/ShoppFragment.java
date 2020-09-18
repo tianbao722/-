@@ -1,9 +1,11 @@
 package com.example.xm2.ui.shopp;
 
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 //购物车
 public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements IShopp.View {
@@ -35,8 +38,6 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     CheckBox checkboxSelect;
     @BindView(R.id.tv_quanxuan)
     TextView tvQuanxuan;
-    @BindView(R.id.ll_cb)
-    LinearLayout llCb;
     @BindView(R.id.txt_allPrice)
     TextView txtAllPrice;
     @BindView(R.id.txt_edit)
@@ -45,6 +46,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     TextView txtSubmit;
     private ShoppRlvAdapter shoppRlvAdapter;
     private ArrayList<ShoppBean.DataBean.CartListBean> listbeans;
+    private int allNumber;
+    private int allPrice;
 
     @Override
     protected IShopp.Presenter initPresenter() {
@@ -58,12 +61,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     @Override
     protected void initView() {
-        setRlv();
-    }
-
-    private void setRlv() {
         listbeans = new ArrayList<>();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -73,11 +72,38 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
         rlvShopp.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
         shoppRlvAdapter = new ShoppRlvAdapter(getActivity(), listbeans);
         rlvShopp.setAdapter(shoppRlvAdapter);
+        tvQuanxuan.setText("全选(0)");
+        shoppRlvAdapter.setOnItemCheckBoxClickListener(new ShoppRlvAdapter.CheckBoxClick() {
+            @Override
+            public void checkChange() {
+                //判断当前是否全选
+                boolean bool = CheckSelectAll();
+                tvQuanxuan.setText("全选(" + allNumber + ")");
+                txtAllPrice.setText("￥" + allPrice);
+                checkboxSelect.setSelected(bool);
+                shoppRlvAdapter.notifyDataSetChanged();
+            }
+        });
     }
-
     @Override
     protected void initData() {
         mPresenter.getShopp();
+    }
+
+    //控件点击监听
+    @OnClick({R.id.checkbox_select, R.id.txt_edit, R.id.txt_submit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.checkbox_select:
+                selectAll();
+                break;
+            case R.id.txt_edit:
+                clickEdit();
+                break;
+            case R.id.txt_submit:
+                submitData();
+                break;
+        }
     }
 
     @Override
@@ -95,6 +121,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     }
 
+
     @Override
     public void getShoppResult(ShoppBean result) {
         if (result.getData().getCartList() != null) {
@@ -105,12 +132,118 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     }
 
     @Override
-    public void getShoppAdd(ShoppAddBean result) {
-
-    }
-
-    @Override
     public void getShoppDelete(ShoppDeleteBean result) {
 
     }
+
+    /**
+     * 全选状态的切换
+     */
+    private void selectAll() {
+        //设置当前是否是全选
+        resetSelect(checkboxSelect.isChecked());
+        tvQuanxuan.setText("全选(" + allNumber + ")");
+        txtAllPrice.setText("￥" + allPrice);
+        shoppRlvAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 编辑状态的切换
+     */
+    private void clickEdit() {
+        //当前是默认的状态---编辑状态
+        if ("编辑".equals(txtEdit.getText())) {
+            shoppRlvAdapter.isEditor = true;
+            txtEdit.setText("完成");
+            txtSubmit.setText("删除所选");
+            txtAllPrice.setVisibility(View.GONE);
+        } else if ("完成".equals(txtEdit.getText())) {   //编辑状态进入默认状态
+            shoppRlvAdapter.isEditor = false;
+            txtEdit.setText("编辑");
+            txtSubmit.setText("下单");
+            txtAllPrice.setVisibility(View.VISIBLE);
+            txtAllPrice.setText("￥0");
+        }
+        resetSelect(false);
+        shoppRlvAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 提交
+     */
+    private void submitData() {
+        if ("下单".equals(txtSubmit.getText())) {
+            //提交数据
+
+        } else if ("删除所选".equals(txtSubmit.getText())) {
+            StringBuilder sb = new StringBuilder();
+            List<Integer> ids = getSelectProducts();
+            for (Integer id : ids) {
+                sb.append(id);
+                sb.append(",");
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+                String productIds = sb.toString();
+                mPresenter.getShoppDelete(productIds);
+            } else {
+                Toast.makeText(getActivity(), "没有选中要删除的商品", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * 重置选中状态
+     *
+     * @param bool
+     */
+    private void resetSelect(boolean bool) {
+        for (ShoppBean.DataBean.CartListBean item : listbeans) {
+            item.select = bool;
+            if (bool) {
+                allNumber += item.getNumber();
+                allPrice += item.getNumber() * item.getRetail_price();
+            }
+        }
+        if (!bool) {
+            allNumber = 0;
+            allPrice = 0;
+        }
+    }
+
+    /**
+     * 获取当前选中的商品
+     *
+     * @return
+     */
+    private List<Integer> getSelectProducts() {
+        List<Integer> ids = new ArrayList<>();
+        for (ShoppBean.DataBean.CartListBean item : listbeans) {
+            if (item.select) {
+                ids.add(item.getProduct_id());
+            }
+        }
+        return ids;
+    }
+
+    /**
+     * 判断当前数据是否选中
+     *
+     * @return
+     */
+    private boolean CheckSelectAll() {
+        boolean isSelectAll = true;
+        for (ShoppBean.DataBean.CartListBean item : listbeans) {
+            if (item.select) {
+                allNumber += item.getNumber();
+                allPrice += item.getNumber() * item.getRetail_price();
+            }
+            if (isSelectAll && !item.select) {
+                isSelectAll = false;
+            }
+        }
+        return isSelectAll;
+    }
+
+
 }

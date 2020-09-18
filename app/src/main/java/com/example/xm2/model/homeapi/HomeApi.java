@@ -5,12 +5,14 @@ import androidx.constraintlayout.helper.widget.Flow;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 
 import java.util.HashMap;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -38,4 +40,10 @@ public interface HomeApi {
     //专题
     @GET("topic/list")
     Flowable<SpecialBean> getSpecial(@Query("page") int page,@Query("size") int size);
+
+    //添加到购物车
+    @POST("cart/add")
+    @FormUrlEncoded
+    Flowable<ShoppAddBean> addCart(@Field("goodsId") int goodsId, @Field("number") int number, @Field("productId") int productId);
+
 }

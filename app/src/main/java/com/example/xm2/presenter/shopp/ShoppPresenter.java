@@ -30,29 +30,12 @@ public class ShoppPresenter extends BasePresenter<IShopp.View> implements IShopp
     }
 
     @Override
-    public void getShoppAdd(String token, HashMap<String, String> map) {
+    public void getShoppDelete(String productIds) {
         addSubscribe(
                 HttpManager
                         .getInstance()
                         .getShoppApi()
-                        .getShoppAdd(token,map)
-                        .compose(RxUtils.<ShoppAddBean>rxScheduler())
-                        .subscribeWith(new CommonSubScriBer<ShoppAddBean>(mView) {
-                            @Override
-                            public void onNext(ShoppAddBean shoppAddBean) {
-                                mView.getShoppAdd(shoppAddBean);
-                            }
-                        })
-        );
-    }
-
-    @Override
-    public void getShoppDelete(String token, String productIds) {
-        addSubscribe(
-                HttpManager
-                        .getInstance()
-                        .getShoppApi()
-                        .getShoppDelete(token,productIds)
+                        .getShoppDelete(productIds)
                         .compose(RxUtils.<ShoppDeleteBean>rxScheduler())
                         .subscribeWith(new CommonSubScriBer<ShoppDeleteBean>(mView) {
                             @Override

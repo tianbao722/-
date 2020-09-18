@@ -3,13 +3,11 @@ package com.example.xm2.ui.home.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -32,22 +30,25 @@ import com.example.xm2.base.BaseAdapter;
 import com.example.xm2.base.ImageActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.adapter.ImageAdapter;
+import com.example.xm2.ui.my.activity.LoginActivity;
+import com.example.xm2.utiles.SpUtils;
 import com.example.xm2.utiles.SystemUtils;
 import com.example.xm2.zidingyiView.CartCustomView;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> implements IHome.RecommendView {
     @BindView(R.id.layout_back)
@@ -112,8 +113,12 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     TextView tvTishiNum;
     @BindView(R.id.layout_bottom)
     LinearLayout layoutBottom;
+    @BindView(R.id.tv_num_all)
+    TextView tvNumAll;
+    @BindView(R.id.tv_add)
+    TextView tvAdd;
     private PopupWindow mPopWindow;
-
+    private int currentNum = 1;
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
             "            <head>\n" +
@@ -131,6 +136,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             "                $\n" +
             "            </body>\n" +
             "        </html>";
+    private HomeGoodDetailBean goodDetailBean;
 
     @Override
     protected IHome.RecommendPersenter initPresenter() {
@@ -145,7 +151,6 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     protected void initView() {
         cl.getBackground().setAlpha(100);
-
     }
 
     @Override
@@ -269,6 +274,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
 
     @Override
     public void getGoodDetailResult(HomeGoodDetailBean result) {
+        goodDetailBean = result;
         //banner刷新
         updateBanner(result.getData().getGallery());
         //评论
@@ -297,6 +303,13 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @Override
     public void getSpecialResult(SpecialBean result) {
 
+    }
+
+    //添加到购物车返回
+    @Override
+    public void addCartInfoReturn(ShoppAddBean result) {
+        int count = result.getData().getCartTotal().getGoodsCount();
+        tvNumAll.setText(String.valueOf(count));
     }
 
     @Override
@@ -336,6 +349,10 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             });
             contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             CartCustomView cartCustomView = contentView.findViewById(R.id.ccv);
+            String numAll = tvNumAll.getText().toString();
+            int numall = Integer.parseInt(numAll);
+            cartCustomView.initView();
+            cartCustomView.setValue(numall);
             ImageView txtClose = contentView.findViewById(R.id.iv_cha);
             txtClose.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -350,18 +367,65 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             // Display display = getWindowManager().getDefaultDisplay();
             // int activityheight = display.getHeight();
             mPopWindow.showAtLocation(layoutBottom, Gravity.NO_GRAVITY, 0, pt[1] - height);
-            cartCustomView.initView();
             cartCustomView.setiClick(new CartCustomView.IClick() {
                 @Override
                 public void iClickNum(int num) {
-
+                    tvNumAll.setText(num+"");
                 }
             });
         }
     }
-    public void bgAlpha(float bgalpha){
+
+    public void bgAlpha(float bgalpha) {
         WindowManager.LayoutParams ab = getWindow().getAttributes();
         ab.alpha = bgalpha;
         getWindow().setAttributes(ab);
     }
+
+    @OnClick({R.id.layout_collect, R.id.tv_add, R.id.layout_cart})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.layout_collect:
+
+                break;
+            case R.id.tv_add:
+                addCart();
+                break;
+            case R.id.layout_cart:
+                setResult(1000);
+                finish();
+                break;
+        }
+    }
+
+    /**
+     * 添加到购物车
+     */
+    private void addCart() {
+        String token = SpUtils.getInstance().getString("token");
+        if (!TextUtils.isEmpty(token)) {
+            //判断当前的规格弹框是否打开
+            if (mPopWindow != null && mPopWindow.isShowing()) {
+                //添加到购物车的操作
+                if (goodDetailBean != null && goodDetailBean.getData().getProductList().size() > 0) {
+                    int goodsId = goodDetailBean.getData().getProductList().get(0).getGoods_id();
+                    int productId = goodDetailBean.getData().getProductList().get(0).getId();
+                    mPresenter.addCart(goodsId, currentNum, productId);
+                    mPopWindow.dismiss();
+                    mPopWindow = null;
+                } else {
+                    Toast.makeText(this, "没有产品数据", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                initPopupWindow();
+            }
+        } else {
+            Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
+            //Intent跳转到登录
+            Intent intent = new Intent(DetailGoodActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
 }

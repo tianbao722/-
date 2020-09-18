@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.common.CommonSubScriBer;
@@ -184,4 +185,22 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                 })
         );
     }
+
+    @Override
+    public void addCart(int goodsId, int number, int productId) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .addCart(goodsId,number,productId)
+                        .compose(RxUtils.<ShoppAddBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<ShoppAddBean>(mView) {
+                            @Override
+                            public void onNext(ShoppAddBean addBean) {
+                                mView.addCartInfoReturn(addBean);
+                            }
+                        })
+        );
+    }
+
 }

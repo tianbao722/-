@@ -2,12 +2,12 @@ package com.example.xm2.bean;
 
 import java.util.List;
 
-public class ShoppBean  {
+public class ShoppBean {
 
     /**
      * errno : 0
      * errmsg :
-     * data : {"cartList":[{"id":129,"user_id":0,"session_id":"1","goods_id":1009012,"goods_sn":"1009012","product_id":14,"goods_name":"可水洗舒柔丝羽绒枕","market_price":59,"retail_price":59,"number":2,"goods_specifition_name_value":"","goods_specifition_ids":"","checked":1,"list_pic_url":"http://yanxuan.nosdn.127.net/a196b367f23ccfd8205b6da647c62b84.png"}],"cartTotal":{"goodsCount":2,"goodsAmount":118,"checkedGoodsCount":2,"checkedGoodsAmount":118}}
+     * data : {"cartList":[{"id":110,"user_id":7,"session_id":"1","goods_id":1116033,"goods_sn":"1116033","product_id":171,"goods_name":"多功能人体工学转椅","market_price":1399,"retail_price":1399,"number":3,"goods_specifition_name_value":"","goods_specifition_ids":"","checked":1,"list_pic_url":"http://yanxuan.nosdn.127.net/f1dbf1d9967c478ee6def81ed40734a2.png"}],"cartTotal":{"goodsCount":3,"goodsAmount":4197,"checkedGoodsCount":3,"checkedGoodsAmount":4197}}
      */
 
     private int errno;
@@ -40,8 +40,8 @@ public class ShoppBean  {
 
     public static class DataBean {
         /**
-         * cartList : [{"id":129,"user_id":0,"session_id":"1","goods_id":1009012,"goods_sn":"1009012","product_id":14,"goods_name":"可水洗舒柔丝羽绒枕","market_price":59,"retail_price":59,"number":2,"goods_specifition_name_value":"","goods_specifition_ids":"","checked":1,"list_pic_url":"http://yanxuan.nosdn.127.net/a196b367f23ccfd8205b6da647c62b84.png"}]
-         * cartTotal : {"goodsCount":2,"goodsAmount":118,"checkedGoodsCount":2,"checkedGoodsAmount":118}
+         * cartList : [{"id":110,"user_id":7,"session_id":"1","goods_id":1116033,"goods_sn":"1116033","product_id":171,"goods_name":"多功能人体工学转椅","market_price":1399,"retail_price":1399,"number":3,"goods_specifition_name_value":"","goods_specifition_ids":"","checked":1,"list_pic_url":"http://yanxuan.nosdn.127.net/f1dbf1d9967c478ee6def81ed40734a2.png"}]
+         * cartTotal : {"goodsCount":3,"goodsAmount":4197,"checkedGoodsCount":3,"checkedGoodsAmount":4197}
          */
 
         private CartTotalBean cartTotal;
@@ -65,10 +65,10 @@ public class ShoppBean  {
 
         public static class CartTotalBean {
             /**
-             * goodsCount : 2
-             * goodsAmount : 118
-             * checkedGoodsCount : 2
-             * checkedGoodsAmount : 118
+             * goodsCount : 3
+             * goodsAmount : 4197
+             * checkedGoodsCount : 3
+             * checkedGoodsAmount : 4197
              */
 
             private int goodsCount;
@@ -111,20 +111,20 @@ public class ShoppBean  {
 
         public static class CartListBean {
             /**
-             * id : 129
-             * user_id : 0
+             * id : 110
+             * user_id : 7
              * session_id : 1
-             * goods_id : 1009012
-             * goods_sn : 1009012
-             * product_id : 14
-             * goods_name : 可水洗舒柔丝羽绒枕
-             * market_price : 59
-             * retail_price : 59
-             * number : 2
+             * goods_id : 1116033
+             * goods_sn : 1116033
+             * product_id : 171
+             * goods_name : 多功能人体工学转椅
+             * market_price : 1399
+             * retail_price : 1399
+             * number : 3
              * goods_specifition_name_value :
              * goods_specifition_ids :
              * checked : 1
-             * list_pic_url : http://yanxuan.nosdn.127.net/a196b367f23ccfd8205b6da647c62b84.png
+             * list_pic_url : http://yanxuan.nosdn.127.net/f1dbf1d9967c478ee6def81ed40734a2.png
              */
 
             private int id;
@@ -141,6 +141,10 @@ public class ShoppBean  {
             private String goods_specifition_ids;
             private int checked;
             private String list_pic_url;
+
+
+            public boolean select;
+
 
             public int getId() {
                 return id;

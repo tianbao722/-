@@ -6,8 +6,8 @@
 
     <TextView
         android:id="@+id/tv_subtract"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_40"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_30"
         android:gravity="center"
         android:text="-"
         android:background="@drawable/shape_borad"
@@ -15,8 +15,8 @@
 
     <TextView
         android:id="@+id/tv_num"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_40"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_30"
         android:gravity="center"
         android:text="1"
         android:background="@drawable/shape_borad"
@@ -24,8 +24,8 @@
 
     <TextView
         android:id="@+id/tv_jia"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_40"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_30"
         android:gravity="center"
         android:text="+"
         android:background="@drawable/shape_borad"

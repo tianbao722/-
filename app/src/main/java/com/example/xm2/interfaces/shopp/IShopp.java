@@ -14,9 +14,6 @@ public interface IShopp {
         //获取购物车数据
         void getShoppResult(ShoppBean result);
 
-        //添加数据到购物车
-        void getShoppAdd(ShoppAddBean result);
-
         //删除购物车中的某条数据
         void getShoppDelete(ShoppDeleteBean result);
     }
@@ -25,11 +22,8 @@ public interface IShopp {
         //请求购物车数据
         void getShopp();
 
-        //请求添加数据到购物车数据
-        void getShoppAdd(String token, HashMap<String,String> map);
-
         //请求删除购物车中的某条数据
-        void getShoppDelete(String token,String productIds);
+        void getShoppDelete(String productIds);
 
     }
 }

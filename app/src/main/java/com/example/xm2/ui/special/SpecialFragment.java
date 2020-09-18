@@ -16,6 +16,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
@@ -151,5 +152,10 @@ public class SpecialFragment extends BaseFragment<IHome.RecommendPersenter> impl
             list.addAll(data);
             specialAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void addCartInfoReturn(ShoppAddBean result) {
+
     }
 }

@@ -17,6 +17,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.IBasePresenter;
@@ -153,6 +154,11 @@ public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implem
 
     @Override
     public void getSpecialResult(SpecialBean result) {
+
+    }
+
+    @Override
+    public void addCartInfoReturn(ShoppAddBean result) {
 
     }
 }
