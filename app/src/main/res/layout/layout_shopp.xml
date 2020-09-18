@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="#F4F4F4"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/sp_20"
+            android:layout_height="wrap_content"
+            android:text="30天无忧退货"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableLeft="@mipmap/yuanquan"
+            android:textColor="#969696"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="48小时快速退款"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableLeft="@mipmap/yuanquan"
+            android:textColor="#969696"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="满88元免邮费"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableLeft="@mipmap/yuanquan"
+            android:textColor="#969696"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
