@@ -337,6 +337,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
         ButterKnife.bind(this);
     }
 
+
     @SuppressLint("ResourceAsColor")
     public void initPopupWindow() {
         if (mPopWindow != null && mPopWindow.isShowing()) {
