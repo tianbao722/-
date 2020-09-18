@@ -308,8 +308,11 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     //添加到购物车返回
     @Override
     public void addCartInfoReturn(ShoppAddBean result) {
-        int count = result.getData().getCartTotal().getGoodsCount();
-        tvNumAll.setText(String.valueOf(count));
+        if (result.getData() != null){
+            int count = result.getData().getCartTotal().getGoodsCount();
+            tvNumAll.setText(String.valueOf(count));
+            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

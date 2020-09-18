@@ -61,18 +61,15 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     @Override
     protected void initView() {
+        ivBack.setVisibility(View.GONE);
+        tvQuanxuan.setText("全选(0)");
+        txtAllPrice.setText("¥ 0");
         listbeans = new ArrayList<>();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rlvShopp.setLayoutManager(linearLayoutManager);
         rlvShopp.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayout.VERTICAL));
         shoppRlvAdapter = new ShoppRlvAdapter(getActivity(), listbeans);
         rlvShopp.setAdapter(shoppRlvAdapter);
-        tvQuanxuan.setText("全选(0)");
         shoppRlvAdapter.setOnItemCheckBoxClickListener(new ShoppRlvAdapter.CheckBoxClick() {
             @Override
             public void checkChange() {
@@ -140,10 +137,11 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
      * 全选状态的切换
      */
     private void selectAll() {
-        //设置当前是否是全选
-        resetSelect(checkboxSelect.isChecked());
-        tvQuanxuan.setText("全选(" + allNumber + ")");
-        txtAllPrice.setText("￥" + allPrice);
+        //设置当前是否是权限
+        resetSelect(!checkboxSelect.isChecked());
+        checkboxSelect.setSelected(!checkboxSelect.isChecked());
+        tvQuanxuan.setText("全选("+allNumber+")");
+        txtAllPrice.setText("￥"+allPrice);
         shoppRlvAdapter.notifyDataSetChanged();
     }
 
@@ -186,6 +184,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
                 sb.deleteCharAt(sb.length() - 1);
                 String productIds = sb.toString();
                 mPresenter.getShoppDelete(productIds);
+                shoppRlvAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), "没有选中要删除的商品", Toast.LENGTH_SHORT).show();
             }

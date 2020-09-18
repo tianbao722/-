@@ -58,7 +58,6 @@ public class ShoppRlvAdapter extends BaseAdapter {
         txtName.setText(bean.getGoods_name());
         txtNumber.setText("X" + bean.getNumber());
         txtPrice.setText("￥" + bean.getRetail_price());
-        Glide.with(context).load(bean.getList_pic_url()).into(img);
         cartCustomView.initView();
         cartCustomView.setValue(bean.getNumber());
         cartCustomView.setiClick(new CartCustomView.IClick() {
@@ -67,11 +66,13 @@ public class ShoppRlvAdapter extends BaseAdapter {
                 bean.setNumber(num);
             }
         });
-        checkBox.setChecked(bean.select);
+
+        //checkBox.setChecked(bean.select);
+        checkBox.setSelected(bean.select);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                bean.select = isChecked;
+                bean.select = !bean.select;
                 if (click != null) {
                     click.checkChange();
                 }
