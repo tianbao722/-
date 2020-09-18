@@ -137,6 +137,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             "            </body>\n" +
             "        </html>";
     private HomeGoodDetailBean goodDetailBean;
+    private int productId;
 
     @Override
     protected IHome.RecommendPersenter initPresenter() {
@@ -308,10 +309,14 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     //添加到购物车返回
     @Override
     public void addCartInfoReturn(ShoppAddBean result) {
-        if (result.getData() != null){
-            int count = result.getData().getCartTotal().getGoodsCount();
-            tvNumAll.setText(String.valueOf(count));
-            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+        List<ShoppAddBean.DataBean.CartListBean> beans = result.getData().getCartList();
+        for (int i = 0; i < beans.size(); i++) {
+            int product_id = beans.get(i).getProduct_id();
+            if (productId == product_id) {
+                Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "添加失败", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -373,7 +378,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             cartCustomView.setiClick(new CartCustomView.IClick() {
                 @Override
                 public void iClickNum(int num) {
-                    tvNumAll.setText(num+"");
+                    tvNumAll.setText(num + "");
                 }
             });
         }
@@ -412,7 +417,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
                 //添加到购物车的操作
                 if (goodDetailBean != null && goodDetailBean.getData().getProductList().size() > 0) {
                     int goodsId = goodDetailBean.getData().getProductList().get(0).getGoods_id();
-                    int productId = goodDetailBean.getData().getProductList().get(0).getId();
+                    productId = goodDetailBean.getData().getProductList().get(0).getId();
                     mPresenter.addCart(goodsId, currentNum, productId);
                     mPopWindow.dismiss();
                     mPopWindow = null;

@@ -23,7 +23,7 @@ public interface IShopp {
         void getShopp();
 
         //请求删除购物车中的某条数据
-        void getShoppDelete(String productIds);
+        void getShoppDelete(String token,String productIds);
 
     }
 }

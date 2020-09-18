@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                 .hide(classifyFragment)
                                 .hide(specialFragment)
                                 .hide(homeFragment)
+                                .hide(shoppFragment)
                                 .commit();
                         break;
                 }

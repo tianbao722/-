@@ -19,6 +19,7 @@ import com.example.xm2.bean.ShoppDeleteBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
 import com.example.xm2.ui.shopp.adapter.ShoppRlvAdapter;
+import com.example.xm2.utiles.SpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     private ArrayList<ShoppBean.DataBean.CartListBean> listbeans;
     private int allNumber;
     private int allPrice;
+    private String productIds;
 
     @Override
     protected IShopp.Presenter initPresenter() {
@@ -82,6 +84,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
             }
         });
     }
+
     @Override
     protected void initData() {
         mPresenter.getShopp();
@@ -130,6 +133,23 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     @Override
     public void getShoppDelete(ShoppDeleteBean result) {
+        List<ShoppDeleteBean.DataBean.CartListBean> beans = (List<ShoppDeleteBean.DataBean.CartListBean>) result.getData().getCartList();
+        if (beans != null){
+            for (int i = 0; i < beans.size(); i++) {
+                int product_id = beans.get(i).getProduct_id();
+                String pid = String.valueOf(product_id);
+                if (pid != productIds) {
+                    clickEdit();
+                    Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+                }else {
+                    clickEdit();
+                    Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else {
+            clickEdit();
+            Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -140,8 +160,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
         //设置当前是否是权限
         resetSelect(!checkboxSelect.isChecked());
         checkboxSelect.setSelected(!checkboxSelect.isChecked());
-        tvQuanxuan.setText("全选("+allNumber+")");
-        txtAllPrice.setText("￥"+allPrice);
+        tvQuanxuan.setText("全选(" + allNumber + ")");
+        txtAllPrice.setText("￥" + allPrice);
         shoppRlvAdapter.notifyDataSetChanged();
     }
 
@@ -172,7 +192,6 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     private void submitData() {
         if ("下单".equals(txtSubmit.getText())) {
             //提交数据
-
         } else if ("删除所选".equals(txtSubmit.getText())) {
             StringBuilder sb = new StringBuilder();
             List<Integer> ids = getSelectProducts();
@@ -182,8 +201,9 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
             }
             if (sb.length() > 0) {
                 sb.deleteCharAt(sb.length() - 1);
-                String productIds = sb.toString();
-                mPresenter.getShoppDelete(productIds);
+                productIds = sb.toString();
+                String token = SpUtils.getInstance().getString("token");
+                mPresenter.getShoppDelete(token, productIds);
                 shoppRlvAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), "没有选中要删除的商品", Toast.LENGTH_SHORT).show();

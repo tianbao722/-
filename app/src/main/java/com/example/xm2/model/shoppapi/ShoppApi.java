@@ -12,6 +12,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -22,6 +23,7 @@ public interface ShoppApi {
 
 
     //删除购物车某条数据
-    @POST("cart/delete?productIds=171")
-    Flowable<ShoppDeleteBean> getShoppDelete(@Query("productIds") String productIds);
+    @POST("cart/delete")
+    @FormUrlEncoded
+    Flowable<ShoppDeleteBean> getShoppDelete(@Header("X-Nideshop-Token") String token,@Field("productIds") String productIds);
 }

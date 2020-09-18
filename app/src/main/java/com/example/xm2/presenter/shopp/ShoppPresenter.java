@@ -30,12 +30,12 @@ public class ShoppPresenter extends BasePresenter<IShopp.View> implements IShopp
     }
 
     @Override
-    public void getShoppDelete(String productIds) {
+    public void getShoppDelete(String token,String productIds) {
         addSubscribe(
                 HttpManager
                         .getInstance()
                         .getShoppApi()
-                        .getShoppDelete(productIds)
+                        .getShoppDelete(token,productIds)
                         .compose(RxUtils.<ShoppDeleteBean>rxScheduler())
                         .subscribeWith(new CommonSubScriBer<ShoppDeleteBean>(mView) {
                             @Override
