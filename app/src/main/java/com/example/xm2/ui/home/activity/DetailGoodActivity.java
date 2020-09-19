@@ -314,6 +314,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
             int product_id = beans.get(i).getProduct_id();
             if (productId == product_id) {
                 Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+                break;
             } else {
                 Toast.makeText(this, "添加失败", Toast.LENGTH_SHORT).show();
             }

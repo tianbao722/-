@@ -63,7 +63,8 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        String username = SpUtils.getInstance().getString("username");
+        tvDenglu.setText(username);
     }
 
     @Override

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.module.LibraryGlideModule;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.ShoppAddBean;
@@ -50,6 +51,14 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     private int allNumber;
     private int allPrice;
     private String productIds;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+
+        }
+    }
 
     @Override
     protected IShopp.Presenter initPresenter() {
@@ -133,24 +142,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     @Override
     public void getShoppDelete(ShoppDeleteBean result) {
-        List<ShoppDeleteBean.DataBean.CartListBean> beans = (List<ShoppDeleteBean.DataBean.CartListBean>) result.getData().getCartList();
-        if (beans != null){
-            for (int i = 0; i < beans.size(); i++) {
-                int product_id = beans.get(i).getProduct_id();
-                String pid = String.valueOf(product_id);
-                if (pid != productIds) {
-                    clickEdit();
-                    Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
-                }else {
-                    clickEdit();
-                    Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }else {
-            clickEdit();
-            Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
-        }
-
+        clickEdit();
+        Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -204,6 +197,15 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
                 productIds = sb.toString();
                 String token = SpUtils.getInstance().getString("token");
                 mPresenter.getShoppDelete(token, productIds);
+                for (int i = 0; i < listbeans.size(); i++) {
+                    int product_id = listbeans.get(i).getProduct_id();
+                    for (Integer id : ids){
+                        if (product_id == id){
+                            listbeans.remove(listbeans.get(i));
+                            shoppRlvAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
                 shoppRlvAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), "没有选中要删除的商品", Toast.LENGTH_SHORT).show();
