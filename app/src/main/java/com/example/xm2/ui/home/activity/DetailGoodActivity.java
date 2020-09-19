@@ -393,6 +393,7 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
     @OnClick({R.id.layout_collect, R.id.tv_add, R.id.layout_cart})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
             case R.id.layout_collect:
 
                 break;
