@@ -59,6 +59,7 @@ public class ShoppRlvAdapter extends BaseAdapter {
         txtNumber.setText("X" + bean.getNumber());
         txtPrice.setText("￥" + bean.getRetail_price());
         cartCustomView.initView();
+        Glide.with(context).load(bean.getList_pic_url()).into(img);
         cartCustomView.setValue(bean.getNumber());
         cartCustomView.setiClick(new CartCustomView.IClick() {
             @Override

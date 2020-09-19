@@ -53,10 +53,11 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     private String productIds;
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
-
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            listbeans.clear();
+            mPresenter.getShopp();
         }
     }
 
@@ -199,8 +200,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
                 mPresenter.getShoppDelete(token, productIds);
                 for (int i = 0; i < listbeans.size(); i++) {
                     int product_id = listbeans.get(i).getProduct_id();
-                    for (Integer id : ids){
-                        if (product_id == id){
+                    for (Integer id : ids) {
+                        if (product_id == id) {
                             listbeans.remove(listbeans.get(i));
                             shoppRlvAdapter.notifyDataSetChanged();
                         }
@@ -266,5 +267,8 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
         return isSelectAll;
     }
 
-
+    public void setAdd(ShoppBean.DataBean.CartListBean bean){
+        listbeans.add(bean);
+        shoppRlvAdapter.notifyDataSetChanged();
+    }
 }
