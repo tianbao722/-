@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.interfaces.IBasePresenter;
+import com.example.xm2.ui.my.activity.DiZhiActivity;
 import com.example.xm2.ui.my.activity.LoginActivity;
 import com.example.xm2.utiles.SpUtils;
 
@@ -77,7 +78,8 @@ public class MyFragment extends BaseFragment {
         llDizhi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), DiZhiActivity.class);
+                startActivity(intent);
             }
         });
         tvDenglu.setOnClickListener(new View.OnClickListener() {

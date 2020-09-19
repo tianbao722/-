@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.my.activity.DiZhiActivity"></activity>
+        <activity android:name=".ui.my.activity.AddDiZhiActivity"></activity>
+        <activity android:name=".ui.my.activity.DiZhiActivity" />
         <activity android:name=".ui.my.activity.ZhuCeActivity" />
         <activity android:name=".ui.my.activity.LoginActivity" />
         <activity android:name=".ui.home.activity.DetailGoodActivity" />

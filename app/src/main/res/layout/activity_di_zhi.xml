@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.my.activity.DiZhiActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_toolbar1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F4F4F4">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rlv_dizhi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_addDizhi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="#B4282D"
+        android:text="新建"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/sp_20" />
+</LinearLayout>
