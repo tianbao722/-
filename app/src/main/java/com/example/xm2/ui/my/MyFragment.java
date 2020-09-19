@@ -74,6 +74,12 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        llDizhi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         tvDenglu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

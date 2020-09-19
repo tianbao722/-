@@ -1,11 +1,13 @@
 package com.example.xm2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -156,5 +158,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * 跳转购物车的切换
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1000) {
+            manager
+                    .beginTransaction()
+                    .show(shoppFragment)
+                    .hide(classifyFragment)
+                    .hide(homeFragment)
+                    .hide(specialFragment)
+                    .hide(myFragment)
+                    .commit();
+        }
     }
 }
