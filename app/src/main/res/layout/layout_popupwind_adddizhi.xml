@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_300"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/sp_20"
+        android:layout_marginRight="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_shengfen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="省份"
+            android:textColor="#000000"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_chengshi"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_shengfen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="城市"
+            android:textColor="#000000"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/tv_quxian"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_chengshi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:padding="@dimen/dp_5"
+            android:text="区县"
+            android:textColor="#000000"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/tv_queding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_5"
+            android:text="确定"
+            android:textColor="#000000"
+            android:textSize="@dimen/sp_15" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <com.weigan.loopview.LoopView
+            android:id="@+id/adress_province"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:awv_isLoop="false"
+            app:awv_itemsVisibleCount="9"
+            app:awv_lineSpace="3"
+            app:awv_textsize="20" />
+
+        <com.weigan.loopview.LoopView
+            android:id="@+id/adress_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:awv_isLoop="false"
+            app:awv_itemsVisibleCount="9"
+            app:awv_lineSpace="3"
+            app:awv_textsize="20" />
+
+        <com.weigan.loopview.LoopView
+            android:id="@+id/adress_area"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:awv_isLoop="false"
+            app:awv_itemsVisibleCount="9"
+            app:awv_lineSpace="3"
+            app:awv_textsize="20" />
+    </LinearLayout>
+</LinearLayout>

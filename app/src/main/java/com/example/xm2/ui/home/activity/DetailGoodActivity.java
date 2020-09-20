@@ -31,6 +31,7 @@ import com.example.xm2.base.BaseAdapter;
 import com.example.xm2.base.ImageActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
@@ -317,6 +318,11 @@ public class DetailGoodActivity extends BaseActivity<IHome.RecommendPersenter> i
                 break;
             }
         }
+    }
+
+    @Override
+    public void getAdressReturn(MyadressBean result) {
+
     }
 
     @Override

@@ -55,7 +55,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden){
+        if (hidden) {
             listbeans.clear();
             mPresenter.getShopp();
         }
@@ -267,7 +267,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
         return isSelectAll;
     }
 
-    public void setAdd(ShoppBean.DataBean.CartListBean bean){
+    public void setAdd(ShoppBean.DataBean.CartListBean bean) {
         listbeans.add(bean);
         shoppRlvAdapter.notifyDataSetChanged();
     }

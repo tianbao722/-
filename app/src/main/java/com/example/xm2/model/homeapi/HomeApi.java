@@ -5,6 +5,7 @@ import androidx.constraintlayout.helper.widget.Flow;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
@@ -46,4 +47,7 @@ public interface HomeApi {
     @FormUrlEncoded
     Flowable<ShoppAddBean> addCart(@Field("goodsId") int goodsId, @Field("number") int number, @Field("productId") int productId);
 
+    //加载省份数据
+    @GET("region/list")
+    Flowable<MyadressBean> getAdressById(@Query("parentId") int parentId);
 }

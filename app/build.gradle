@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.xm2"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -99,4 +99,13 @@ dependencies {
 //    implementation 'q.rorbin:VerticalTabLayout:1.2.5'//垂直Tablayout
     //RecyclerView Adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
+
+    //RecyclerView Adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
+
+    implementation 'com.github.zq13408401721:net:1.0'
+
+    implementation 'liji.library.dev:citypickerview:5.2.2'
+
+    implementation 'com.weigan:loopView:0.2.2'//三级联动
 }

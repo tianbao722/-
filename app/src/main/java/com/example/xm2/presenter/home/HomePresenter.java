@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
@@ -198,6 +199,23 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                             @Override
                             public void onNext(ShoppAddBean addBean) {
                                 mView.addCartInfoReturn(addBean);
+                            }
+                        })
+        );
+    }
+
+    @Override
+    public void getAdress(int parentId) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getAdressById(parentId)
+                        .compose(RxUtils.<MyadressBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<MyadressBean>(mView) {
+                            @Override
+                            public void onNext(MyadressBean myadressBean) {
+                                mView.getAdressReturn(myadressBean);
                             }
                         })
         );

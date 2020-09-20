@@ -3,6 +3,7 @@ package com.example.xm2.interfaces.home;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
 import com.example.xm2.bean.UserBean;
@@ -32,6 +33,9 @@ public interface IHome {
         //添加商品信息返回
         void addCartInfoReturn(ShoppAddBean result);
 
+        //加载地址信息
+        void getAdressReturn(MyadressBean result);
+
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -52,6 +56,9 @@ public interface IHome {
 
         //添加到购物车
         void addCart(int goodsId, int number, int productId);
+
+        //请求省份数据
+        void getAdress(int parentId);
     }
 
 }
