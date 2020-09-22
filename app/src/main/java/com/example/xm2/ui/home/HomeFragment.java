@@ -15,6 +15,8 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -22,6 +24,7 @@ import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.DetailGoodActivity;
+import com.example.xm2.ui.home.activity.adapter.NewActivity;
 import com.example.xm2.ui.home.adapter.HomeListAdapter;
 
 import java.util.ArrayList;
@@ -108,6 +111,8 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
                         startActivity(intent);
                         break;
                     case HomeBean.ITEM_TYPE_TITLE:
+                        Intent intent1 = new Intent(getActivity(), NewActivity.class);
+                        startActivity(intent1);
                         break;
                     case HomeBean.ITEM_TYPE_TITLETOP:
 
@@ -164,6 +169,16 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     public void getAdressReturn(MyadressBean result) {
+
+    }
+
+    @Override
+    public void getHomeNewTopResult(HomeNewTopBean result) {
+
+    }
+
+    @Override
+    public void getHomeNewResult(HomeNewBean result) {
 
     }
 }

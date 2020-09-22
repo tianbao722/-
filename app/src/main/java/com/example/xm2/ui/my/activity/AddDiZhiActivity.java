@@ -19,6 +19,8 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -344,6 +346,16 @@ public class AddDiZhiActivity extends BaseActivity<IHome.RecommendPersenter> imp
                 area.setItems(adresses);
             }
         }
+    }
+
+    @Override
+    public void getHomeNewTopResult(HomeNewTopBean result) {
+
+    }
+
+    @Override
+    public void getHomeNewResult(HomeNewBean result) {
+
     }
 
     /**

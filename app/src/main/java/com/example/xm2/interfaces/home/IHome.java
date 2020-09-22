@@ -3,6 +3,8 @@ package com.example.xm2.interfaces.home;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -36,6 +38,13 @@ public interface IHome {
         //加载地址信息
         void getAdressReturn(MyadressBean result);
 
+        //获取新品首发的top数据
+        void getHomeNewTopResult(HomeNewTopBean result);
+
+        //获取新品首发列表数据
+        void getHomeNewResult(HomeNewBean result);
+
+
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -59,6 +68,12 @@ public interface IHome {
 
         //请求省份数据
         void getAdress(int parentId);
+
+        //请求新品首发top数据
+        void getNewTop();
+
+        //请求新品首付数据
+        void getNew(HashMap<String,String> map);
     }
 
 }

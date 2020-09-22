@@ -17,6 +17,8 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -165,6 +167,16 @@ public class ZhuCeActivity extends BaseActivity<IHome.RecommendPersenter> implem
 
     @Override
     public void getAdressReturn(MyadressBean result) {
+
+    }
+
+    @Override
+    public void getHomeNewTopResult(HomeNewTopBean result) {
+
+    }
+
+    @Override
+    public void getHomeNewResult(HomeNewBean result) {
 
     }
 }

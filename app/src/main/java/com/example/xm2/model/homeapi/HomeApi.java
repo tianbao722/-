@@ -5,6 +5,8 @@ import androidx.constraintlayout.helper.widget.Flow;
 
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -19,6 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface HomeApi {
     @GET("index")
@@ -50,4 +53,11 @@ public interface HomeApi {
     //加载省份数据
     @GET("region/list")
     Flowable<MyadressBean> getAdressById(@Query("parentId") int parentId);
+
+    //新品首发Top数据
+    @GET("goods/hot")
+    Flowable<HomeNewTopBean> getNewTop();
+
+    @GET("goods/list")
+    Flowable<HomeNewBean> getNew(@QueryMap HashMap<String,String> map);
 }

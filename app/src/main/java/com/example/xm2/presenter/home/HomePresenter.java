@@ -8,6 +8,8 @@ import androidx.annotation.RequiresApi;
 import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
+import com.example.xm2.bean.HomeNewBean;
+import com.example.xm2.bean.HomeNewTopBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -216,6 +218,40 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                             @Override
                             public void onNext(MyadressBean myadressBean) {
                                 mView.getAdressReturn(myadressBean);
+                            }
+                        })
+        );
+    }
+
+    @Override
+    public void getNewTop() {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getNewTop()
+                        .compose(RxUtils.<HomeNewTopBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<HomeNewTopBean>(mView) {
+                            @Override
+                            public void onNext(HomeNewTopBean newTopBean) {
+                                mView.getHomeNewTopResult(newTopBean);
+                            }
+                        })
+        );
+    }
+
+    @Override
+    public void getNew(HashMap<String,String> map) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getNew(map)
+                        .compose(RxUtils.<HomeNewBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<HomeNewBean>(mView) {
+                            @Override
+                            public void onNext(HomeNewBean homeBean) {
+                                mView.getHomeNewResult(homeBean);
                             }
                         })
         );
