@@ -10,7 +10,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -108,4 +107,6 @@ dependencies {
     implementation 'liji.library.dev:citypickerview:5.2.2'
 
     implementation 'com.weigan:loopView:0.2.2'//三级联动
+    //图片预览
+    implementation 'com.github.tianbao722:imageYiLai:1.2'
 }

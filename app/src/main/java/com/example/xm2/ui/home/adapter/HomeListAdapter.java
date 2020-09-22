@@ -3,6 +3,7 @@ package com.example.xm2.ui.home.adapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteReadOnlyDatabaseException;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -41,6 +42,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
     private Context context;
     private String priceWord;
     private TopicAdapter topicAdapter;
+    private ArrayList<String> images = new ArrayList<>();
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -193,6 +195,17 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
     private void updateBrand(BaseViewHolder viewHolder, HomeBean.DataBean.BrandListBean brands) {
         if (!TextUtils.isEmpty(brands.getNew_pic_url())) {
             Glide.with(context).load(brands.getNew_pic_url()).into((ImageView) viewHolder.getView(R.id.img_brand));
+
+            viewHolder.getView(R.id.img_brand).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setAction("bigimage");
+                    intent.putExtra("postition", 1);
+                    intent.putStringArrayListExtra("list", images);
+                    context.startActivity(intent);
+                }
+            });
         }
         viewHolder.setText(R.id.txt_brand_name, brands.getName());
         String price = priceWord.replace("$", String.valueOf(brands.getFloor_price()));
@@ -210,6 +223,17 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         TextView name = viewHolder.getView(R.id.txt_newgood_name);
         TextView price = viewHolder.getView(R.id.txt_newgood_price);
         Glide.with(context).load(newGoods.getList_pic_url()).into(img);
+        images.add(newGoods.getList_pic_url());
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction("bigimage");
+                intent.putExtra("postition", 1);
+                intent.putStringArrayListExtra("list", images);
+                context.startActivity(intent);
+            }
+        });
         name.setText(newGoods.getName());
         price.setText("¥" + newGoods.getRetail_price() + "");
     }
