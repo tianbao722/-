@@ -89,6 +89,21 @@ public class MyFragment extends BaseFragment {
                 startActivityForResult(intent, 2);
             }
         });
+        ivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+        ivJinru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+
     }
 
     @Override

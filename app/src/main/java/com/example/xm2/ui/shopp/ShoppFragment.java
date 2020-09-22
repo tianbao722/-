@@ -169,12 +169,14 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
             txtEdit.setText("完成");
             txtSubmit.setText("删除所选");
             txtAllPrice.setVisibility(View.GONE);
+            checkboxSelect.setSelected(false);
         } else if ("完成".equals(txtEdit.getText())) {   //编辑状态进入默认状态
             shoppRlvAdapter.isEditor = false;
             txtEdit.setText("编辑");
             txtSubmit.setText("下单");
             txtAllPrice.setVisibility(View.VISIBLE);
             txtAllPrice.setText("￥0");
+            checkboxSelect.setSelected(false);
         }
         resetSelect(false);
         shoppRlvAdapter.notifyDataSetChanged();
