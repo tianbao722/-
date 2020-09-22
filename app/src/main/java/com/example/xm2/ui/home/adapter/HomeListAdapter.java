@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteReadOnlyDatabaseException;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -165,6 +166,12 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         TextView jujia = viewHolder.getView(R.id.tv_jujia);
         TextView fuzhuang = viewHolder.getView(R.id.tv_fuzhuang);
         TextView canchu = viewHolder.getView(R.id.tv_canchu);
+        ImageView ivzhiqu = viewHolder.getView(R.id.iv_zhiqu);
+        ImageView ivpeijian = viewHolder.getView(R.id.iv_peijian);
+        ImageView ivjujia = viewHolder.getView(R.id.iv_jujia);
+        ImageView ivfuzhuang = viewHolder.getView(R.id.iv_fuzhuang);
+        ImageView ivcanchu = viewHolder.getView(R.id.iv_canchu);
+
         //只让当前的布局内容添加一次 only one
         if (layoutChannels.getChildCount() == 0) {
 //            for (HomeBean.DataBean.ChannelBean item : channels) {
@@ -183,6 +190,11 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
             peijian.setText(channels.get(2).getName());
             fuzhuang.setText(channels.get(3).getName());
             zhiqu.setText(channels.get(4).getName());
+            Glide.with(context).load(channels.get(0).getUrl()).into(ivjujia);
+            Glide.with(context).load(channels.get(1).getIcon_url()).into(ivcanchu);
+            Glide.with(context).load(channels.get(2).getIcon_url()).into(ivpeijian);
+            Glide.with(context).load(channels.get(3).getIcon_url()).into(ivfuzhuang);
+            Glide.with(context).load(channels.get(4).getIcon_url()).into(ivzhiqu);
         }
     }
 
