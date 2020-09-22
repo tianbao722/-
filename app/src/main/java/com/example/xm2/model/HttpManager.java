@@ -4,6 +4,7 @@ import android.util.Log;
 
 
 import com.example.xm2.base.ConStants;
+import com.example.xm2.model.classifyapi.ClassifyApi;
 import com.example.xm2.model.homeapi.HomeApi;
 import com.example.xm2.model.shoppapi.ShoppApi;
 import com.example.xm2.utiles.DigestUtils;
@@ -138,12 +139,23 @@ public class HttpManager {
         }
         return homeApi;
     }
+
     private ShoppApi shoppApi;
+
     public ShoppApi getShoppApi() {
         if (shoppApi == null) {
             shoppApi = getRetrofit(ConStants.Base_HomeUrl).create(ShoppApi.class);
         }
         return shoppApi;
+    }
+
+    private ClassifyApi classifyApi;
+
+    public ClassifyApi getClassifyApi() {
+        if (classifyApi == null) {
+            classifyApi = getRetrofit(ConStants.Base_HomeUrl).create(ClassifyApi.class);
+        }
+        return classifyApi;
     }
 
     /**
