@@ -18,6 +18,7 @@ import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
 import com.example.xm2.bean.HomeNewTopBean;
+import com.example.xm2.bean.HomeZhiZhaoBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -25,6 +26,7 @@ import com.example.xm2.bean.UserBean;
 import com.example.xm2.interfaces.home.IHome;
 import com.example.xm2.presenter.home.HomePresenter;
 import com.example.xm2.ui.home.activity.DetailGoodActivity;
+import com.example.xm2.ui.home.activity.ZhiZaoActivity;
 import com.example.xm2.ui.home.activity.adapter.NewActivity;
 import com.example.xm2.ui.home.adapter.HomeListAdapter;
 
@@ -135,7 +137,8 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
                         startActivity(intent1);
                         break;
                     case HomeBean.ITEM_TYPE_TITLETOP:
-
+                        Intent intent2 = new Intent(getActivity(), ZhiZaoActivity.class);
+                        startActivity(intent2);
                         break;
                     case HomeBean.ITEM_TYPE_TOPIC:
                         break;
@@ -199,11 +202,16 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     public void getHomeNewResult(HomeNewBean result) {
-        if (result.getData() != null){
+        if (result.getData() != null) {
             List<HomeNewBean.DataBeanX.DataBean> data = result.getData().getData();
             dataBeans.addAll(data);
             List<HomeNewBean.DataBeanX.FilterCategoryBean> filterCategory = result.getData().getFilterCategory();
             filterCategoryBeans.addAll(filterCategory);
         }
+    }
+
+    @Override
+    public void getHomeZhiZaoResult(HomeZhiZhaoBean result) {
+
     }
 }

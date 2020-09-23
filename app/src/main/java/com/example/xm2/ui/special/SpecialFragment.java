@@ -18,6 +18,7 @@ import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
 import com.example.xm2.bean.HomeNewTopBean;
+import com.example.xm2.bean.HomeZhiZhaoBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -174,6 +175,11 @@ public class SpecialFragment extends BaseFragment<IHome.RecommendPersenter> impl
 
     @Override
     public void getHomeNewResult(HomeNewBean result) {
+
+    }
+
+    @Override
+    public void getHomeZhiZaoResult(HomeZhiZhaoBean result) {
 
     }
 }

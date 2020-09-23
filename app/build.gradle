@@ -100,7 +100,6 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
 
     //RecyclerView Adapter
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
 
     implementation 'com.github.zq13408401721:net:1.0'
 

@@ -18,9 +18,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".ui.home.activity.adapter.NewActivity">
-
-        </activity>
+        <activity android:name=".ui.home.activity.ZhiZaoActivity"></activity>
+        <activity android:name=".ui.home.activity.adapter.NewActivity"></activity>
         <activity android:name=".ui.my.activity.AddDiZhiActivity" />
         <activity android:name=".ui.my.activity.DiZhiActivity" />
         <activity android:name=".ui.my.activity.ZhuCeActivity" />

@@ -15,6 +15,7 @@ public class ImageAdapter extends BaseAdapter {
         super(context, data);
     }
 
+
     @Override
     protected int getLayout() {
         return R.layout.layout_image;

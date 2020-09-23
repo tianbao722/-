@@ -7,6 +7,7 @@ import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
 import com.example.xm2.bean.HomeNewTopBean;
+import com.example.xm2.bean.HomeZhiZhaoBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -39,11 +40,11 @@ public interface HomeApi {
     //注册
     @POST("auth/register")
     @FormUrlEncoded
-    Flowable<UserBean> getZhuCe(@FieldMap HashMap<String,String> map);
+    Flowable<UserBean> getZhuCe(@FieldMap HashMap<String, String> map);
 
     //专题
     @GET("topic/list")
-    Flowable<SpecialBean> getSpecial(@Query("page") int page,@Query("size") int size);
+    Flowable<SpecialBean> getSpecial(@Query("page") int page, @Query("size") int size);
 
     //添加到购物车
     @POST("cart/add")
@@ -58,6 +59,11 @@ public interface HomeApi {
     @GET("goods/hot")
     Flowable<HomeNewTopBean> getNewTop();
 
+    //新品首发列表数据
     @GET("goods/list")
-    Flowable<HomeNewBean> getNew(@QueryMap HashMap<String,String> map);
+    Flowable<HomeNewBean> getNew(@QueryMap HashMap<String, String> map);
+
+    //品牌制造商列表数据
+    @GET("brand/list")
+    Flowable<HomeZhiZhaoBean> getZhiZao(@Query("page") int page, @Query("size") int size);
 }

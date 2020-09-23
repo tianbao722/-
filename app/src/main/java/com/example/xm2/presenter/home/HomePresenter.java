@@ -10,6 +10,7 @@ import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
 import com.example.xm2.bean.HomeNewTopBean;
+import com.example.xm2.bean.HomeZhiZhaoBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -159,16 +160,16 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
     public void getZhuce(HashMap<String, String> map) {
         addSubscribe(
                 HttpManager
-                .getInstance()
-                .getHomeApi()
-                .getZhuCe(map)
-                .compose(RxUtils.<UserBean>rxScheduler())
-                .subscribeWith(new CommonSubScriBer<UserBean>(mView) {
-                    @Override
-                    public void onNext(UserBean userBean) {
-                        mView.getZhuCeResult(userBean);
-                    }
-                })
+                        .getInstance()
+                        .getHomeApi()
+                        .getZhuCe(map)
+                        .compose(RxUtils.<UserBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<UserBean>(mView) {
+                            @Override
+                            public void onNext(UserBean userBean) {
+                                mView.getZhuCeResult(userBean);
+                            }
+                        })
         );
     }
 
@@ -176,16 +177,16 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
     public void getSpecial(int page, int size) {
         addSubscribe(
                 HttpManager
-                .getInstance()
-                .getHomeApi()
-                .getSpecial(page,size)
-                .compose(RxUtils.<SpecialBean>rxScheduler())
-                .subscribeWith(new CommonSubScriBer<SpecialBean>(mView) {
-                    @Override
-                    public void onNext(SpecialBean specialBean) {
-                        mView.getSpecialResult(specialBean);
-                    }
-                })
+                        .getInstance()
+                        .getHomeApi()
+                        .getSpecial(page, size)
+                        .compose(RxUtils.<SpecialBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<SpecialBean>(mView) {
+                            @Override
+                            public void onNext(SpecialBean specialBean) {
+                                mView.getSpecialResult(specialBean);
+                            }
+                        })
         );
     }
 
@@ -195,7 +196,7 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                 HttpManager
                         .getInstance()
                         .getHomeApi()
-                        .addCart(goodsId,number,productId)
+                        .addCart(goodsId, number, productId)
                         .compose(RxUtils.<ShoppAddBean>rxScheduler())
                         .subscribeWith(new CommonSubScriBer<ShoppAddBean>(mView) {
                             @Override
@@ -241,7 +242,7 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
     }
 
     @Override
-    public void getNew(HashMap<String,String> map) {
+    public void getNew(HashMap<String, String> map) {
         addSubscribe(
                 HttpManager
                         .getInstance()
@@ -252,6 +253,23 @@ public class HomePresenter extends BasePresenter<IHome.RecommendView> implements
                             @Override
                             public void onNext(HomeNewBean homeBean) {
                                 mView.getHomeNewResult(homeBean);
+                            }
+                        })
+        );
+    }
+
+    @Override
+    public void getZhiZao(int page, int size) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getHomeApi()
+                        .getZhiZao(page, size)
+                        .compose(RxUtils.<HomeZhiZhaoBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<HomeZhiZhaoBean>(mView) {
+                            @Override
+                            public void onNext(HomeZhiZhaoBean homeZhiZhaoBean) {
+                                mView.getHomeZhiZaoResult(homeZhiZhaoBean);
                             }
                         })
         );

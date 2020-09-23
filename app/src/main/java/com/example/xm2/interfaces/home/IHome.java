@@ -5,6 +5,7 @@ import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
 import com.example.xm2.bean.HomeNewTopBean;
+import com.example.xm2.bean.HomeZhiZhaoBean;
 import com.example.xm2.bean.MyadressBean;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.SpecialBean;
@@ -44,7 +45,8 @@ public interface IHome {
         //获取新品首发列表数据
         void getHomeNewResult(HomeNewBean result);
 
-
+        //获取品牌制造商列表数据
+        void getHomeZhiZaoResult(HomeZhiZhaoBean result);
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {
@@ -73,7 +75,10 @@ public interface IHome {
         void getNewTop();
 
         //请求新品首付数据
-        void getNew(HashMap<String,String> map);
+        void getNew(HashMap<String, String> map);
+
+        //请求品牌制造商列表数据
+        void getZhiZao(int page, int size);
     }
 
 }
