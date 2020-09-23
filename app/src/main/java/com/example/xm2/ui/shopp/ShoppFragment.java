@@ -57,6 +57,7 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
         super.onHiddenChanged(hidden);
         if (hidden) {
             listbeans.clear();
+            shoppRlvAdapter.notifyDataSetChanged();
             mPresenter.getShopp();
         }
     }
