@@ -117,6 +117,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
      * @param viewHolder
      * @param title
      */
+    @SuppressLint("ResourceType")
     private void updateTitle(BaseViewHolder viewHolder, String title) {
         viewHolder.setText(R.id.txt_title, title);
     }

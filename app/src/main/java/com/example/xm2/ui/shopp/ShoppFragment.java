@@ -1,5 +1,6 @@
 package com.example.xm2.ui.shopp;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -189,6 +190,14 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     private void submitData() {
         if ("下单".equals(txtSubmit.getText())) {
             //提交数据
+            if (allNumber != 0 && allPrice != 0) {
+                Intent intent = new Intent(getActivity(), XiaDanActivity.class);
+                intent.putExtra("allnumber", allNumber);
+                intent.putExtra("allprice", allPrice);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), "请选中商品", Toast.LENGTH_SHORT).show();
+            }
         } else if ("删除所选".equals(txtSubmit.getText())) {
             StringBuilder sb = new StringBuilder();
             List<Integer> ids = getSelectProducts();
