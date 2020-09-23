@@ -19,11 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity android:name=".ui.home.activity.adapter.NewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.my.activity.AddDiZhiActivity" />
         <activity android:name=".ui.my.activity.DiZhiActivity" />
@@ -32,7 +28,11 @@
         <activity android:name=".ui.home.activity.DetailGoodActivity" />
         <activity android:name=".base.ImageActivity" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

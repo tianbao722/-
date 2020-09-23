@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.base.BaseAdapter;
+import com.example.xm2.base.ConStants;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
@@ -74,7 +75,6 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
     private boolean jiage = false;//价格是否是从高到低
     private ArrayList<HomeNewBean.DataBeanX.DataBean> lsit;
     private NewRlvAdapter newRlvAdapter;
-    private ArrayList<HomeNewBean.DataBeanX.FilterCategoryBean> fenlei;
     private RlvFenLeiAdapter rlvFenLeiAdapter;
     private View inflate;
     private PopupWindow pw;
@@ -92,7 +92,6 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
     @Override
     protected void initView() {
         lsit = new ArrayList<>();
-        fenlei = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2) {
             @Override
             public boolean canScrollVertically() {
@@ -182,12 +181,6 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
             List<HomeNewBean.DataBeanX.DataBean> data = result.getData().getData();
             lsit.addAll(data);
             newRlvAdapter.notifyDataSetChanged();
-            fenlei.clear();
-            if (pw != null && pw.isShowing()){
-                List<HomeNewBean.DataBeanX.FilterCategoryBean> filterCategory = result.getData().getFilterCategory();
-                fenlei.addAll(filterCategory);
-                rlvFenLeiAdapter.notifyDataSetChanged();
-            }
         }
     }
 
@@ -233,31 +226,24 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
                     map1.put("page", "1");
                     map1.put("size", "1000");
                     map1.put("order", "asc");
-                    map1.put("sort", "default");
+                    map1.put("sort", "price");
                     map1.put("categoryId", "0");
                     mPresenter.getNew(map1);
                 } else {//价格低到高
                     setJiaGeXia();
+                    lsit.clear();
                     HashMap<String, String> map2 = new HashMap<>();
                     map2.put("isNew", "1");
                     map2.put("page", "1");
                     map2.put("size", "1000");
                     map2.put("order", "desc");
-                    map2.put("sort", "default");
+                    map2.put("sort", "price");
                     map2.put("categoryId", "0");
                     mPresenter.getNew(map2);
                 }
                 break;
             case R.id.tv_fenlei:
                 setFenLei();
-                HashMap<String, String> map2 = new HashMap<>();
-                map2.put("isNew", "1");
-                map2.put("page", "1");
-                map2.put("size", "1000");
-                map2.put("order", "desc");
-                map2.put("sort", "default");
-                map2.put("categoryId", "0");
-                mPresenter.getNew(map2);
                 inflate = LayoutInflater.from(NewActivity.this).inflate(R.layout.layout_new_popupwoindow, null);
                 RecyclerView rlv = inflate.findViewById(R.id.rlv_new_fenli);
                 GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this, 5) {
@@ -266,7 +252,8 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
                         return false;
                     }
                 };
-                rlvFenLeiAdapter = new RlvFenLeiAdapter(this, fenlei);
+                ArrayList<HomeNewBean.DataBeanX.FilterCategoryBean> beans = ConStants.filterCategoryBean;
+                rlvFenLeiAdapter = new RlvFenLeiAdapter(this, beans);
                 rlv.setLayoutManager(gridLayoutManager1);
                 rlv.setAdapter(rlvFenLeiAdapter);
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -276,17 +263,19 @@ public class NewActivity extends BaseActivity<IHome.RecommendPersenter> implemen
                 pw.setOutsideTouchable(true);
                 pw.setFocusable(true);
                 pw.showAsDropDown(llGaohang, 0, 0);
-
                 rlvFenLeiAdapter.setOnClick(new BaseAdapter.onClick() {
                     @Override
                     public void click(int pos) {
+                        ArrayList<HomeNewBean.DataBeanX.FilterCategoryBean> beans1 = ConStants.filterCategoryBean;
+                        int id = beans1.get(pos).getId();
                         HashMap<String, String> map2 = new HashMap<>();
+                        lsit.clear();
                         map2.put("isNew", "1");
                         map2.put("page", "1");
                         map2.put("size", "1000");
                         map2.put("order", "desc");
-                        map2.put("sort", "default");
-                        map2.put("categoryId", pos + "1");
+                        map2.put("sort", "category");
+                        map2.put("categoryId", id + "");
                         mPresenter.getNew(map2);
                         pw.dismiss();
                     }

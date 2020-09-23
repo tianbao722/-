@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
+import com.example.xm2.base.ConStants;
 import com.example.xm2.bean.HomeBean;
 import com.example.xm2.bean.HomeGoodDetailBean;
 import com.example.xm2.bean.HomeNewBean;
@@ -28,6 +29,7 @@ import com.example.xm2.ui.home.activity.adapter.NewActivity;
 import com.example.xm2.ui.home.adapter.HomeListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +48,8 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
     ImageView ivBack;
     private ArrayList<HomeBean.HomeListBean> list;
     private HomeListAdapter homeListAdapter;
+    private ArrayList<HomeNewBean.DataBeanX.DataBean> dataBeans;
+    private ArrayList<HomeNewBean.DataBeanX.FilterCategoryBean> filterCategoryBeans;
 
     @Override
     protected IHome.RecommendPersenter initPresenter() {
@@ -59,6 +63,7 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     protected void initView() {
+        initResult();
         ivBack.setVisibility(View.GONE);
         list = new ArrayList<>();
         homeListAdapter = new HomeListAdapter(list, getActivity());
@@ -87,9 +92,24 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
         homeListAdapter.bindToRecyclerView(rlvHome);
     }
 
+    private void initResult() {
+        dataBeans = new ArrayList<>();
+        filterCategoryBeans = new ArrayList<>();
+        ConStants.dataBean = dataBeans;
+        ConStants.filterCategoryBean = filterCategoryBeans;
+    }
+
     @Override
     protected void initData() {
         mPresenter.getHome();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("isNew", "1");
+        map.put("page", "1");
+        map.put("size", "1000");
+        map.put("order", "asc");
+        map.put("sort", "default");
+        map.put("categoryId", "0");
+        mPresenter.getNew(map);
     }
 
     @Override
@@ -179,6 +199,11 @@ public class HomeFragment extends BaseFragment<IHome.RecommendPersenter> impleme
 
     @Override
     public void getHomeNewResult(HomeNewBean result) {
-
+        if (result.getData() != null){
+            List<HomeNewBean.DataBeanX.DataBean> data = result.getData().getData();
+            dataBeans.addAll(data);
+            List<HomeNewBean.DataBeanX.FilterCategoryBean> filterCategory = result.getData().getFilterCategory();
+            filterCategoryBeans.addAll(filterCategory);
+        }
     }
 }
