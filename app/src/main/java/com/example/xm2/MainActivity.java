@@ -179,6 +179,15 @@ public class MainActivity extends AppCompatActivity {
                     .hide(specialFragment)
                     .hide(myFragment)
                     .commit();
+        }else if (resultCode == 2000){
+            manager
+                    .beginTransaction()
+                    .show(specialFragment)
+                    .hide(classifyFragment)
+                    .hide(shoppFragment)
+                    .hide(homeFragment)
+                    .hide(myFragment)
+                    .commit();
         }
     }
 }

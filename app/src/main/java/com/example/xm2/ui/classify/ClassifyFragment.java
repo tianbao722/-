@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.xm2.R;
 import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.ClassifyBean;
+import com.example.xm2.bean.ClassifyRlvBean;
 import com.example.xm2.interfaces.classify.IClassify;
 import com.example.xm2.presenter.classify.ClassifyPresenter;
 import com.example.xm2.ui.classify.adapter.VpTabAdapter;
@@ -79,23 +80,20 @@ public class ClassifyFragment extends BaseFragment<IClassify.Presenter> implemen
         if (result.getData() != null) {
             titles = new ArrayList<>();
             List<ClassifyBean.DataBean.CategoryListBean> categoryList = result.getData().getCategoryList();
+            fragments = new ArrayList<>();
             for (ClassifyBean.DataBean.CategoryListBean item : categoryList) {
                 titles.add(item.getName());
+                fragments.add(new ProjectFragment(item.getId()));
             }
-            fragments = new ArrayList<>();
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
-            fragments.add(new ProjectFragment());
             VpTabAdapter vpTabAdapter = new VpTabAdapter(getFragmentManager(), titles, fragments);
             vpTab.setAdapter(vpTabAdapter);
             vpTab.setPageTransformer(true, new DefaultTransformer());
             tablayout.setupWithViewPager(vpTab);
         }
+    }
+
+    @Override
+    public void getClassifyRlvResult(ClassifyRlvBean result) {
+
     }
 }
