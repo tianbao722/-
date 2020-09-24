@@ -39,6 +39,7 @@ public class DiZhiActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

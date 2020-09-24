@@ -15,6 +15,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
 import com.example.xm2.ui.my.activity.DiZhiActivity;
@@ -73,12 +74,21 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
 
     @Override
     protected void initView() {
+        //处理电话号码中间四位*号显示
+        String string = tvPhone.getText().toString();
+        setPhone(string);
+    }
 
+    private void setPhone(String string) {
+
+        String substring = string.substring(0, 3);
+        String substring1 = string.substring(7, 11);
+        tvPhone.setText(substring + "****" + substring1);
     }
 
     @Override
     protected void initData() {
-
+        mPresenter.getShoppXiaDan(1, 1);
     }
 
     @Override
@@ -106,6 +116,19 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
     @Override
     public void getShoppDelete(ShoppDeleteBean result) {
 
+    }
+
+    @Override
+    public void getShoppXiaDanResult(ShoppXiaDanBean result) {
+        if (result.getData() != null){
+            ShoppXiaDanBean.DataBean.CheckedAddressBean checkedAddress = result.getData().getCheckedAddress();
+            tvDizhi.setText(checkedAddress.getFull_region());
+            tvXiangxidizhi.setText(checkedAddress.getAddress());
+            tvName.setText(checkedAddress.getName());
+            String mobile = checkedAddress.getMobile();
+            setPhone(mobile);
+            tvPhone.setText(checkedAddress.getMobile());
+        }
     }
 
     @Override

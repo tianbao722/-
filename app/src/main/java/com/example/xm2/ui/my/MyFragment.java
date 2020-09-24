@@ -15,6 +15,7 @@ import com.example.xm2.base.BaseFragment;
 import com.example.xm2.interfaces.IBasePresenter;
 import com.example.xm2.ui.my.activity.DiZhiActivity;
 import com.example.xm2.ui.my.activity.LoginActivity;
+import com.example.xm2.ui.shopp.XiaDanActivity;
 import com.example.xm2.utiles.SpUtils;
 
 import butterknife.BindView;
@@ -101,6 +102,13 @@ public class MyFragment extends BaseFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivityForResult(intent, 2);
+            }
+        });
+        llDingdan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), XiaDanActivity.class);
+                startActivity(intent);
             }
         });
 

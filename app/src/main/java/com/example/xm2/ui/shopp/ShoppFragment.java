@@ -18,6 +18,7 @@ import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
 import com.example.xm2.ui.shopp.adapter.ShoppRlvAdapter;
@@ -147,6 +148,11 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
     public void getShoppDelete(ShoppDeleteBean result) {
         clickEdit();
         Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getShoppXiaDanResult(ShoppXiaDanBean result) {
+
     }
 
     /**
