@@ -4,6 +4,7 @@ import com.example.xm2.base.BasePresenter;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppDiZhiBean;
 import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.common.CommonSubScriBer;
 import com.example.xm2.interfaces.shopp.IShopp;
@@ -59,6 +60,23 @@ public class ShoppPresenter extends BasePresenter<IShopp.View> implements IShopp
                             @Override
                             public void onNext(ShoppXiaDanBean shoppDeleteBean) {
                                 mView.getShoppXiaDanResult(shoppDeleteBean);
+                            }
+                        })
+        );
+    }
+
+    @Override
+    public void getShoppDiZhi(String token) {
+        addSubscribe(
+                HttpManager
+                        .getInstance()
+                        .getShoppApi()
+                        .getDiZhi(token)
+                        .compose(RxUtils.<ShoppDiZhiBean>rxScheduler())
+                        .subscribeWith(new CommonSubScriBer<ShoppDiZhiBean>(mView) {
+                            @Override
+                            public void onNext(ShoppDiZhiBean shoppDeleteBean) {
+                                mView.getShoppDiZhiResult(shoppDeleteBean);
                             }
                         })
         );

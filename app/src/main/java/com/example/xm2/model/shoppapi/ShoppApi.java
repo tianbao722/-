@@ -3,6 +3,7 @@ package com.example.xm2.model.shoppapi;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppDiZhiBean;
 import com.example.xm2.bean.ShoppXiaDanBean;
 
 import java.util.HashMap;
@@ -22,7 +23,6 @@ public interface ShoppApi {
     @GET("cart/index")
     Flowable<ShoppBean> getShopp();
 
-
     //删除购物车某条数据
     @POST("cart/delete")
     @FormUrlEncoded
@@ -31,4 +31,8 @@ public interface ShoppApi {
     //下单界面数据
     @GET("cart/checkout?addressId=1&couponId=1")
     Flowable<ShoppXiaDanBean> getXiaDan(@Query("addressid") int addressid, @Query("couponid") int couponid);
+
+    //地址数据
+    @GET("address/list")
+    Flowable<ShoppDiZhiBean> getDiZhi(@Header("X-Nideshop-Token") String token);
 }

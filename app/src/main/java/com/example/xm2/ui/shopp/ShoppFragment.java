@@ -18,6 +18,7 @@ import com.example.xm2.base.BaseFragment;
 import com.example.xm2.bean.ShoppAddBean;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppDiZhiBean;
 import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
@@ -152,6 +153,11 @@ public class ShoppFragment extends BaseFragment<IShopp.Presenter> implements ISh
 
     @Override
     public void getShoppXiaDanResult(ShoppXiaDanBean result) {
+
+    }
+
+    @Override
+    public void getShoppDiZhiResult(ShoppDiZhiBean result) {
 
     }
 

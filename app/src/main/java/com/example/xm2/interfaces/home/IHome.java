@@ -47,6 +47,7 @@ public interface IHome {
 
         //获取品牌制造商列表数据
         void getHomeZhiZaoResult(HomeZhiZhaoBean result);
+
     }
 
     interface RecommendPersenter extends IBasePresenter<RecommendView> {

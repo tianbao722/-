@@ -66,4 +66,7 @@ public interface HomeApi {
     //品牌制造商列表数据
     @GET("brand/list")
     Flowable<HomeZhiZhaoBean> getZhiZao(@Query("page") int page, @Query("size") int size);
+
+    //添加新地址
+
 }

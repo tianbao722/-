@@ -15,6 +15,7 @@ import com.example.xm2.R;
 import com.example.xm2.base.BaseActivity;
 import com.example.xm2.bean.ShoppBean;
 import com.example.xm2.bean.ShoppDeleteBean;
+import com.example.xm2.bean.ShoppDiZhiBean;
 import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
@@ -129,6 +130,11 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
             setPhone(mobile);
             tvPhone.setText(checkedAddress.getMobile());
         }
+    }
+
+    @Override
+    public void getShoppDiZhiResult(ShoppDiZhiBean result) {
+
     }
 
     @Override

@@ -111,7 +111,6 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override

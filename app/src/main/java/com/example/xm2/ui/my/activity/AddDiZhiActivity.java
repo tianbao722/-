@@ -114,6 +114,9 @@ public class AddDiZhiActivity extends BaseActivity<IHome.RecommendPersenter> imp
             @Override
             public void onClick(View view) {
                 //保存地址
+
+
+
             }
         });
         //选择地址popupwindow
