@@ -2,12 +2,18 @@ package com.example.xm2.ui.shopp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -20,6 +26,7 @@ import com.example.xm2.bean.ShoppXiaDanBean;
 import com.example.xm2.interfaces.shopp.IShopp;
 import com.example.xm2.presenter.shopp.ShoppPresenter;
 import com.example.xm2.ui.my.activity.DiZhiActivity;
+import com.example.xm2.utiles.SystemUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,6 +114,42 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
                 startActivity(intent);
             }
         });
+        btnFukuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View inflate = LayoutInflater.from(XiaDanActivity.this).inflate(R.layout.layout_popupwindow_zhifu, null);
+                Button weixin = inflate.findViewById(R.id.btn_weixin);
+                Button zhifubao = inflate.findViewById(R.id.btn_zhifubao);
+                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                int width = displayMetrics.widthPixels;
+                int i = SystemUtils.dp2px(XiaDanActivity.this, 125);
+                PopupWindow pw = new PopupWindow(inflate, width, i);
+                pw.setOutsideTouchable(true);
+                pw.setFocusable(true);
+                bgAlpha(0.5f);
+                pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        bgAlpha(1f);
+                    }
+                });
+                pw.showAtLocation(ivBack, Gravity.CENTER,100,100);
+                weixin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(XiaDanActivity.this, "微信支付", Toast.LENGTH_SHORT).show();
+                        pw.dismiss();
+                    }
+                });
+                zhifubao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(XiaDanActivity.this, "支付宝支付", Toast.LENGTH_SHORT).show();
+                        pw.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -121,7 +164,7 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
 
     @Override
     public void getShoppXiaDanResult(ShoppXiaDanBean result) {
-        if (result.getData() != null){
+        if (result.getData() != null) {
             ShoppXiaDanBean.DataBean.CheckedAddressBean checkedAddress = result.getData().getCheckedAddress();
             tvDizhi.setText(checkedAddress.getFull_region());
             tvXiangxidizhi.setText(checkedAddress.getAddress());
@@ -152,5 +195,11 @@ public class XiaDanActivity extends BaseActivity<IShopp.Presenter> implements IS
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    public void bgAlpha(float bgalpha){
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.alpha = bgalpha;
+        getWindow().setAttributes(attributes);
     }
 }
